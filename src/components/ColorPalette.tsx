@@ -1,4 +1,5 @@
-const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'cyan'];
+import { useContext } from 'react';
+import { GameContext } from '../context/GameContext';
 
 const colorClasses: Record<string, string> = {
   red: 'bg-red-500 ring-red-400',
@@ -10,6 +11,8 @@ const colorClasses: Record<string, string> = {
 };
 
 export default function ColorPalette() {
+  const { state } = useContext(GameContext);
+  const colors = [...state.secret].sort(() => Math.random() - 0.5);
   return (
     <div className='flex space-x-2'>
       {colors.map(color => (

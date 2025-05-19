@@ -1,5 +1,9 @@
 export type AppState = {
   secret: string[];
+  colorPalette: string[];
+  guesses: string[];
+  guessNumber: number;
+  isValidGuess: boolean;
 };
 
 export type GameContextType = {

@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch --verbose --detectOpenHandles "
   },
   "dependencies": {
     "react": "^19.1.0",

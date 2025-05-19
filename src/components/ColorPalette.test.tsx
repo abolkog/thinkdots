@@ -1,10 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { GameContext } from '../context/GameContext';
 import ColorPalette from './ColorPalette';
-
-const mockState = {
-  secret: ['red', 'blue', 'green', 'yellow'],
-};
+import { mockState } from '../../test/fixtures';
 
 const dispatch = jest.fn();
 describe('ColorPalette', () => {

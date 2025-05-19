@@ -1,13 +1,13 @@
-type AppState = {
+export type AppState = {
   secret: string[];
 };
 
-type GameContextType = {
+export type GameContextType = {
   state: AppState;
   dispatch: React.Dispatch<AppAction>;
 };
 
-type AppAction = {
+export type AppAction = {
   type: string;
   payload?: unknown;
 };

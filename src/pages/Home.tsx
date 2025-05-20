@@ -1,0 +1,40 @@
+import Button from '@components/ui/Button';
+import Logo from '@components/ui/Logo';
+
+import { useNavigate, NavLink } from 'react-router';
+
+function Home() {
+  const navigate = useNavigate();
+
+  const handleNewGame = () => {
+    navigate('/game');
+  };
+
+  return (
+    <>
+      <article className='bg-black-300 w-[90%] rounded-lg p-5 text-center'>
+        <div className='bg-black-500 rounded-full w-40 mx-auto mb-5 p-4 flex items-center justify-center'>
+          <Logo />
+        </div>
+        <h1 className='font-bold mb-5 text-lg'>Welcome to ThinkDots</h1>
+
+        <h3 className='text-gray-500'>
+          <NavLink to='/help'>New Player? Learn How To play</NavLink>
+        </h3>
+      </article>
+
+      <article className='flex flex-col gap-3 w-[90%]'>
+        <div className='w-full rounded-2xl pb-2'>
+          <Button
+            onClick={handleNewGame}
+            cssClass='rounded-2xl w-full font-bold text-lg'
+          >
+            new game
+          </Button>
+        </div>
+      </article>
+    </>
+  );
+}
+
+export default Home;

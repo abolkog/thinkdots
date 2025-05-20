@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import GameBoard from './GameBoard';
-import { GameContext } from '../context/GameContext';
-import { mockState } from '../../test/fixtures';
+import GameBoard from '@components/game/GameBoard';
+import { GameContext } from '@context/GameContext';
+import { mockState } from '@test/fixtures';
 
 describe('GameBoard', () => {
   it('renders a row for each guess', () => {

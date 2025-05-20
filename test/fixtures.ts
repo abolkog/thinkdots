@@ -1,8 +1,8 @@
 import type { AppState } from '../src/context/types';
 
 export const mockState: AppState = {
-  secret: ['red', 'blue', 'green', 'yellow'],
-  colorPalette: ['red', 'blue', 'green', 'yellow'],
+  secret: ['red', 'indigo', 'green', 'yellow'],
+  colorPalette: ['red', 'indigo', 'green', 'yellow'],
   guesses: [],
   feedback: [],
   guessNumber: 1,

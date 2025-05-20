@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Dot from './Dot';
-import { GameContext } from '../context/GameContext';
-import { COLORS } from '../util/gameUtil';
-import { mockState } from '../../test/fixtures';
+import Dot from '@components/game/Dot';
+import { GameContext } from '@context/GameContext';
+import { COLORS } from '@util/gameUtil';
+import { mockState } from '@test/fixtures';
 
 const mockDispatch = jest.fn();
 
@@ -16,7 +16,7 @@ describe('Dot', () => {
       <GameContext.Provider
         value={{ state: mockState, dispatch: mockDispatch }}
       >
-        <Dot position={0} />
+        <Dot position={0} disabled={false} />
       </GameContext.Provider>
     );
     expect(screen.getByRole('button')).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('Dot', () => {
       <GameContext.Provider
         value={{ state: mockState, dispatch: mockDispatch }}
       >
-        <Dot position={1} />
+        <Dot position={1} disabled={false} />
       </GameContext.Provider>
     );
     const button = screen.getByRole('button');

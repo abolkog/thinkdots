@@ -1,6 +1,6 @@
-import reducer, { AppActions } from './reducer';
-import { COLORS_PER_ROW } from '../util/common';
-import type { AppState } from './types';
+import reducer, { AppActions } from '@context/reducer';
+import { COLORS_PER_ROW } from '@util/common';
+import type { AppState } from '@context/types';
 
 const initialState: AppState = {
   guesses: ['', '', '', ''],

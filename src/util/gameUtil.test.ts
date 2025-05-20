@@ -9,7 +9,7 @@ describe('GameUtil', () => {
 
     it('should only use available colors', () => {
       const code = generateSecretCode(6);
-      const COLORS = ['red', 'blue', 'green', 'yellow', 'purple', 'cyan'];
+      const COLORS = ['red', 'indigo', 'green', 'yellow', 'purple', 'cyan'];
       code.forEach(color => {
         expect(COLORS).toContain(color);
       });

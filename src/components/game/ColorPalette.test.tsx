@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { GameContext } from '../context/GameContext';
-import ColorPalette from './ColorPalette';
-import { mockState } from '../../test/fixtures';
+import { GameContext } from '@context/GameContext';
+import ColorPalette from '@components/game/ColorPalette';
+import { mockState } from '@test/fixtures';
 
 const dispatch = jest.fn();
 describe('ColorPalette', () => {

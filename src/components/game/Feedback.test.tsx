@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Feedback from './Feedback';
-import { GameContext } from '../context/GameContext';
-import { COLORS_PER_ROW } from '../util/common';
-import { mockState } from '../../test/fixtures';
+import Feedback from '@components/game/Feedback';
+import { GameContext } from '@context/GameContext';
+import { COLORS_PER_ROW } from '@util/common';
+import { mockState } from '@test/fixtures';
 
 const mockDispatch = jest.fn();
 

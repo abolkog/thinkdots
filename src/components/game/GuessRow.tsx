@@ -1,7 +1,7 @@
-import { useGameContext } from '../hooks/useGameContext';
-import { COLORS_PER_ROW } from '../util/common';
-import Dot from './Dot';
-import Feedback from './Feedback';
+import { useGameContext } from '@hooks/useGameContext';
+import { COLORS_PER_ROW } from '@util/common';
+import Dot from '@components/game/Dot';
+import Feedback from '@components/game/Feedback';
 
 export default function GuessRow({ position }: { position: number }) {
   const { state } = useGameContext();

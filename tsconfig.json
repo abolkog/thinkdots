@@ -5,9 +5,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
-
     "strict": true,
-
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,

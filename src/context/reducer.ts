@@ -1,5 +1,5 @@
-import { COLORS_PER_ROW } from '../util/common';
-import type { AppAction, AppState } from './types';
+import { COLORS_PER_ROW } from '@util/common';
+import type { AppAction, AppState } from '@context/types';
 
 export const AppActions = {
   SET_GUESS: 'SET_GUESS',

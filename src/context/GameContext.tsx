@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { generateSecretCode } from '../util/gameUtil';
-import type { AppState, GameContextType } from './types';
+import { generateSecretCode } from '@util/gameUtil';
+import type { AppState, GameContextType } from '@context/types';
 
 const initSecretCode = () => {
   const secret = generateSecretCode();

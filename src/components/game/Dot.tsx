@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { colorClasses, COLORS } from '../util/gameUtil';
-import { useGameContext } from '../hooks/useGameContext';
-import { AppActions } from '../context/reducer';
-import { classNames } from '../util/common';
+import { colorClasses, COLORS } from '@util/gameUtil';
+import { useGameContext } from '@hooks/useGameContext';
+import { AppActions } from '@context/reducer';
+import { classNames } from '@util/common';
 
 type DotProps = {
   position: number;
@@ -28,7 +28,7 @@ export default function Dot({ position, disabled }: DotProps) {
     <button
       disabled={disabled}
       className={classNames(
-        `w-10 h-10 rounded-full border-2 border-gray-400 hover:ring-2 hover:scale-105 transition-transform ${colorClasses[color]}`,
+        `w-10 h-10 rounded-full border-2 border-gray-400 hover:ring-2 hover:scale-105 transition-transform  ${colorClasses[color]}`,
         disabled ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'
       )}
       onClick={handleClick}

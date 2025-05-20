@@ -1,5 +1,5 @@
-import { useGameContext } from '../hooks/useGameContext';
-import { COLORS_PER_ROW } from '../util/common';
+import { useGameContext } from '@hooks/useGameContext';
+import { COLORS_PER_ROW } from '@util/common';
 
 export default function Feedback({ position }: { position: number }) {
   const { state } = useGameContext();

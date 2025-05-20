@@ -1,5 +1,5 @@
-import { useGameContext } from '../hooks/useGameContext';
-import GuessRow from './GuessRow';
+import { useGameContext } from '@hooks/useGameContext';
+import GuessRow from '@components/game/GuessRow';
 
 export default function GameBoard() {
   const { state } = useGameContext();

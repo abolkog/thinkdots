@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Controls from './Controls';
-import { GameContext } from '../context/GameContext';
-import { mockState } from '../../test/fixtures';
+import Controls from '@components/game/Controls';
+import { GameContext } from '@context/GameContext';
+import { mockState } from '@test/fixtures';
 
 const mockDispatch = jest.fn();
 

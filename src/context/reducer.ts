@@ -18,7 +18,6 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       const isValidGuess =
         newGuesses.every(guess => guess !== '') &&
         new Set(newGuesses).size === COLORS_PER_ROW;
-
       return {
         ...state,
         guesses: newGuesses,
@@ -26,15 +25,20 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       };
     }
     case AppActions.VALIDATE_GUESS: {
-      const { guesses, secret } = state;
-      console.log('Validating guess:', guesses);
-      console.log('Secret code:', secret);
-      const isCorrect = guesses.every((val, idx) => val === secret[idx]);
-      console.log('Is correct:', isCorrect);
+      const { guesses, secret, feedback } = state;
+
+      const correctGuesses = guesses.filter(
+        (color, idx) => color === secret[idx]
+      ).length;
+      const newFeedback = [...feedback, correctGuesses];
+
+      const isGameOver = guesses.every((val, idx) => val === secret[idx]);
       return {
         ...state,
         guessNumber: state.guessNumber + 1,
         isValidGuess: false,
+        feedback: newFeedback,
+        isGameOver,
       };
     }
     default:

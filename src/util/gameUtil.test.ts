@@ -18,7 +18,7 @@ describe('GameUtil', () => {
     it('should not have duplicate colors in the code', () => {
       const code = generateSecretCode(6);
       const uniqueColors = new Set(code);
-      expect(uniqueColors.size).toBe(code.length);
+      expect(uniqueColors.size).toEqual(code.length);
     });
 
     it('should throw an error if requested length exceeds available colors', () => {
@@ -31,7 +31,7 @@ describe('GameUtil', () => {
       const code1 = generateSecretCode(4);
       const code2 = generateSecretCode(4);
 
-      expect(code1.join('')).not.toBe(code2.join(''));
+      expect(code1.join('')).not.toEqual(code2.join(''));
     });
   });
 });

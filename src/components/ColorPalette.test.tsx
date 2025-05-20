@@ -27,7 +27,7 @@ describe('ColorPalette', () => {
       const found = screen
         .getAllByRole('button')
         .some(btn => btn.className.includes(colorClass));
-      expect(found).toBe(true);
+      expect(found).toEqual(true);
     });
   });
 });

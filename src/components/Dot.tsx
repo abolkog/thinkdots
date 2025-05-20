@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { colorClasses, COLORS } from '../util/gameUtil';
 import { useGameContext } from '../hooks/useGameContext';
 import { AppActions } from '../context/reducer';
@@ -24,7 +24,7 @@ export default function Dot({ position }: DotProps) {
 
   return (
     <button
-      className={`w-10 h-10 rounded-full border-2 border-gray-400  cursor-pointer hover:scale-105 transition-transform ${colorClasses[color]}`}
+      className={`w-10 h-10 rounded-full border-2 border-gray-400  cursor-pointer hover:ring-2 hover:scale-105 transition-transform ${colorClasses[color]}`}
       onClick={handleClick}
     />
   );

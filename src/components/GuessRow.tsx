@@ -2,7 +2,7 @@ import { COLORS_PER_ROW } from '../util/common';
 import Dot from './Dot';
 import Feedback from './Feedback';
 
-export default function GuessRow() {
+export default function GuessRow({ position }: { position: number }) {
   return (
     <div className='flex items-center space-x-4'>
       <div className='flex space-x-2'>
@@ -10,7 +10,7 @@ export default function GuessRow() {
           <Dot key={i} position={i} />
         ))}
       </div>
-      <Feedback />
+      <Feedback position={position} />
     </div>
   );
 }

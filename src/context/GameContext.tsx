@@ -10,8 +10,10 @@ const initSecretCode = () => {
 export const initialState: AppState = {
   ...initSecretCode(),
   guesses: [],
+  feedback: [],
   guessNumber: 1,
   isValidGuess: false,
+  isGameOver: false,
 };
 
 export const GameContext = createContext<GameContextType>({

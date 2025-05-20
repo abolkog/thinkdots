@@ -35,7 +35,8 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       const isGameOver = guesses.every((val, idx) => val === secret[idx]);
       return {
         ...state,
-        guessNumber: state.guessNumber + 1,
+        guessNumber: isGameOver ? state.guessNumber : state.guessNumber + 1,
+        guesses: [],
         isValidGuess: false,
         feedback: newFeedback,
         isGameOver,

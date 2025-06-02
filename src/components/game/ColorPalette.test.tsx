@@ -7,7 +7,9 @@ const dispatch = jest.fn();
 describe('ColorPalette', () => {
   it('renders a button for each color in the secret', () => {
     render(
-      <GameContext.Provider value={{ state: mockState, dispatch }}>
+      <GameContext.Provider
+        value={{ state: { ...mockState, showPalette: true }, dispatch }}
+      >
         <ColorPalette />
       </GameContext.Provider>
     );
@@ -18,15 +20,17 @@ describe('ColorPalette', () => {
 
   it('renders buttons with correct color classes', () => {
     render(
-      <GameContext.Provider value={{ state: mockState, dispatch }}>
+      <GameContext.Provider
+        value={{ state: { ...mockState, showPalette: true }, dispatch }}
+      >
         <ColorPalette />
       </GameContext.Provider>
     );
-    mockState.secret.forEach(color => {
+    mockState.secret.forEach((color) => {
       const colorClass = `bg-${color}-500`;
       const found = screen
         .getAllByRole('button')
-        .some(btn => btn.className.includes(colorClass));
+        .some((btn) => btn.className.includes(colorClass));
       expect(found).toEqual(true);
     });
   });

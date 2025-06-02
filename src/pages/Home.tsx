@@ -1,3 +1,4 @@
+import DifficultySelector from '@components/home/DifficultySelector';
 import Button from '@components/ui/Button';
 import Logo from '@components/ui/Logo';
 
@@ -16,6 +17,8 @@ function Home() {
         <Logo cssClass='bg-black-500 mb-5 p-4' />
 
         <h1 className='font-bold mb-5 text-lg'>Welcome to ThinkDots</h1>
+
+        <DifficultySelector />
 
         <h3 className='text-gray-500'>
           <NavLink to='/help'>New Player? Learn How To play</NavLink>

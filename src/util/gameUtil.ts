@@ -1,3 +1,5 @@
+import { COLORS_PER_ROW, GUESS_STATUS } from './common';
+
 export const COLORS = ['red', 'indigo', 'green', 'yellow', 'purple', 'cyan'];
 
 export const colorClasses: Record<string, string> = {
@@ -9,10 +11,19 @@ export const colorClasses: Record<string, string> = {
   cyan: 'bg-cyan-500 ring-cyan-400',
 };
 
-export function generateSecretCode(length = 4) {
-  if (length > COLORS.length) {
-    throw new Error('Requested code length exceeds number of available colors');
-  }
+function generateSecretCode() {
   const shuffled = [...COLORS].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, length);
+  return shuffled.slice(0, COLORS_PER_ROW);
+}
+
+export function initSecretCodeAndColorPalette() {
+  const secret = generateSecretCode();
+  const colorPalette = [...secret].sort(() => Math.random() - 0.5);
+  return { secret, colorPalette };
+}
+
+export function getGuessStatus(guess: string, secret: string[], idx: number) {
+  if (secret[idx] === guess) return GUESS_STATUS.CORRECT;
+  if (secret.includes(guess)) return GUESS_STATUS.PRESENT;
+  return GUESS_STATUS.ABSENT;
 }

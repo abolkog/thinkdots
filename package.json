@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
-    "test:watch": "jest --watch --verbose --detectOpenHandles ",
+    "test:watch": "jest --watchAll --verbose --detectOpenHandles ",
     "prepare": "husky || true",
     "pre-commit": "lint-staged"
   },

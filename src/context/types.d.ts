@@ -12,11 +12,13 @@ export type AppState = {
   secret: string[];
   colorPalette: string[];
   guesses: string[];
-  feedback: number[];
+  feedback: Record<number, number[]>;
   guessNumber: number;
   isValidGuess: boolean;
   isGameOver: boolean;
   modal?: ModalProps;
+  isEasyMode: boolean;
+  showPalette: boolean;
 };
 
 export type GameContextType = {

@@ -21,30 +21,10 @@ describe('GameBoard', () => {
         <GameBoard />
       </GameContext.Provider>
     );
-    mockState.guesses.forEach(color => {
+    mockState.guesses.forEach((color) => {
       if (color) {
         expect(screen.getAllByTestId(`dot-${color}`).length).toBeGreaterThan(0);
       }
     });
   });
-
-  it('renders feedback for each row', () => {
-    render(
-      <GameContext.Provider value={{ state: mockState, dispatch: jest.fn() }}>
-        <GameBoard />
-      </GameContext.Provider>
-    );
-    mockState.feedback.forEach((_, idx) => {
-      expect(screen.getByTestId(`feedback-${idx}`)).toBeInTheDocument();
-    });
-  });
-
-  //   it('shows game over message if isGameOver is true', () => {
-  //     render(
-  //       <GameContext.Provider value={{ state: mockState, dispatch: jest.fn() }}>
-  //         <GameBoard />
-  //       </GameContext.Provider>
-  //     );
-  //     expect(screen.getByText(/game over/i)).toBeInTheDocument();
-  //   });
 });

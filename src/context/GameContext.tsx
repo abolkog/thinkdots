@@ -1,19 +1,16 @@
 import { createContext } from 'react';
-import { generateSecretCode } from '@util/gameUtil';
+import { initSecretCodeAndColorPalette } from '@util/gameUtil';
 import type { AppState, GameContextType } from '@context/types';
 
-const initSecretCode = () => {
-  const secret = generateSecretCode();
-  const colorPalette = [...secret].sort(() => Math.random() - 0.5);
-  return { secret, colorPalette };
-};
 export const initialState: AppState = {
-  ...initSecretCode(),
+  ...initSecretCodeAndColorPalette(),
   guesses: [],
-  feedback: [],
+  feedback: {},
   guessNumber: 1,
   isValidGuess: false,
   isGameOver: false,
+  isEasyMode: true,
+  showPalette: false,
 };
 
 export const GameContext = createContext<GameContextType>({

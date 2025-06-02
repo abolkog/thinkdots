@@ -1,5 +1,5 @@
-import Button from "@components/ui/Button";
-import { useNavigate } from "react-router";
+import Button from '@components/ui/Button';
+import { useNavigate } from 'react-router';
 
 function Help() {
   const navigate = useNavigate();
@@ -18,6 +18,25 @@ function Help() {
         <li>
           <strong>Game Setup:</strong> The computer randomly selects a sequence
           of colors (the secret code). The code is hidden from you.
+        </li>
+        <li>
+          <strong>Difficulty Levels:</strong>
+          <ul className="list-disc list-inside ml-6">
+            <li>
+              <span className="font-semibold text-green-400">Easy:</span> You
+              receive feedback for each dot in your guess. For every dot, you
+              will know if your guess is correct (right color and position),
+              present (right color, wrong position), or absent (color not in the
+              code).
+            </li>
+            <li>
+              <span className="font-semibold text-pink-400">Pro:</span> You
+              receive generic feedback per row only. After submitting a guess,
+              you will be told how many colors are correct and in the correct
+              position, and how many are present but in the wrong position, but
+              not which dots are which.
+            </li>
+          </ul>
         </li>
         <li>
           <strong>Making a Guess:</strong>
@@ -42,7 +61,7 @@ function Help() {
               Correct color in the correct position.
             </li>
             <li>
-              <span className="text-yellow-400 font-semibold">Yellow dot</span>:
+              <span className="text-white font-semibold">White dot</span>:
               Correct color, but in the wrong position.
             </li>
             <li>
@@ -70,9 +89,9 @@ function Help() {
         </li>
       </ol>
       <p className="text-gray-400">Good luck and have fun cracking the code!</p>
-      <div className="w-full rounded-2xl mt-6">
+      <div className="w-full rounded-2xl my-10">
         <Button
-          onClick={() => navigate("/game")}
+          onClick={() => navigate('/game')}
           cssClass="rounded-2xl w-full font-bold text-lg"
         >
           Start Game

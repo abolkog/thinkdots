@@ -38,6 +38,10 @@ Please make sure to update tests as appropriate.
 
 See also the list of [contributors](https://github.com/abolkog/thinkdots/contributors) who participated in this project.
 
+## Design Reference
+
+The UI design of this project is based on [g1alexander's Tic Tac Toe](https://github.com/g1alexander/tic-tac-toe).
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

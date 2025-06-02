@@ -13,9 +13,8 @@ function Home() {
   return (
     <>
       <article className='bg-black-300 w-[90%] rounded-lg p-5 text-center'>
-        <div className='bg-black-500 rounded-full w-40 mx-auto mb-5 p-4 flex items-center justify-center'>
-          <Logo />
-        </div>
+        <Logo cssClass='bg-black-500 mb-5 p-4' />
+
         <h1 className='font-bold mb-5 text-lg'>Welcome to ThinkDots</h1>
 
         <h3 className='text-gray-500'>

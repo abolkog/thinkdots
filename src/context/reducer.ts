@@ -1,9 +1,12 @@
 import { COLORS_PER_ROW } from '@util/common';
-import type { AppAction, AppState } from '@context/types';
+import type { AppAction, AppState, ModalProps } from '@context/types';
+import { initialState } from '@context/GameContext';
 
 export const AppActions = {
   SET_GUESS: 'SET_GUESS',
   VALIDATE_GUESS: 'VALIDATE_GUESS',
+  TOGGLE_MODAL: 'TOGGLE_MODAL',
+  RESET_GAME: 'RESET_GAME',
 };
 
 export default function reducer(state: AppState, action: AppAction): AppState {
@@ -42,6 +45,19 @@ export default function reducer(state: AppState, action: AppAction): AppState {
         isGameOver,
       };
     }
+    case AppActions.RESET_GAME: {
+      return {
+        ...initialState,
+      };
+    }
+    case AppActions.TOGGLE_MODAL: {
+      const modal = action.payload as ModalProps;
+      return {
+        ...state,
+        modal,
+      };
+    }
+
     default:
       return state;
   }

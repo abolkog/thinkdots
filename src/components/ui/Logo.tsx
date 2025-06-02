@@ -1,9 +1,21 @@
 import AppLogo from '@assets/think-dots-light.svg';
+import { classNames } from '@util/common';
 
-export default function Logo() {
+type LogoProps = {
+  cssClass?: string;
+};
+
+export default function Logo({ cssClass = '' }: LogoProps) {
   return (
-    <article className='flex gap-2'>
-      <img src={AppLogo} alt='think-dots' />
-    </article>
+    <div>
+      <div
+        className={classNames(
+          'rounded-full w-40 mx-auto flex items-center justify-center',
+          cssClass
+        )}
+      >
+        <img src={AppLogo} alt='think-dots' />
+      </div>
+    </div>
   );
 }

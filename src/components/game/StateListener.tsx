@@ -1,0 +1,59 @@
+import { AppActions } from '@context/reducer';
+import { useGameContext } from '@hooks/useGameContext';
+import { NUMBER_OF_ATTEMPTS } from '@util/common';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+
+export default function StateListener() {
+  const navigate = useNavigate();
+
+  const { state, dispatch } = useGameContext();
+  const { isGameOver, guessNumber } = state;
+
+  const resetGame = () => {
+    dispatch({
+      type: AppActions.RESET_GAME,
+      payload: {
+        isOpen: false,
+      },
+    });
+  };
+
+  const exitGame = () => {
+    resetGame();
+    navigate('/');
+  };
+
+  useEffect(() => {
+    if (isGameOver) {
+      dispatch({
+        type: AppActions.TOGGLE_MODAL,
+        payload: {
+          title: 'Congratulations!',
+          message: `You guessed the secret code in ${guessNumber} attempts!`,
+          yesButtonText: 'Play Again',
+          noButtonText: 'Exit',
+          yesButtonOnClick: resetGame,
+          noButtonOnClick: exitGame,
+          isOpen: true,
+        },
+      });
+    }
+    if (guessNumber > NUMBER_OF_ATTEMPTS) {
+      dispatch({
+        type: AppActions.TOGGLE_MODAL,
+        payload: {
+          title: 'Game Over',
+          message: 'You have used all your guesses. Better luck next time!',
+          yesButtonText: 'Play Again',
+          noButtonText: 'Exit',
+          yesButtonOnClick: resetGame,
+          noButtonOnClick: exitGame,
+          isOpen: true,
+        },
+      });
+    }
+  }, [guessNumber, isGameOver]);
+
+  return null;
+}

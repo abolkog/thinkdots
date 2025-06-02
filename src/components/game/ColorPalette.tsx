@@ -4,6 +4,7 @@ import { useGameContext } from '@hooks/useGameContext';
 export default function ColorPalette() {
   const { state } = useGameContext();
   const { colorPalette } = state;
+  if (!state.isEasyMode || !state.showPalette) return null;
   return (
     <div className='bg-gray-300 p-3 rounded-lg flex w-full mb-5 flex-col items-center'>
       <span className='font-bold text-black-500 uppercase mb-2'>

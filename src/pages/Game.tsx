@@ -1,8 +1,8 @@
-import Controls from "@components/game/Controls";
-import GameBoard from "@components/game/GameBoard";
-import Header from "@components/game/Header";
-import StateListener from "@components/game/StateListener";
-import Modal from "@components/ui/Modal";
+import Controls from '@components/game/Controls';
+import GameBoard from '@components/game/GameBoard';
+import Header from '@components/game/Header';
+import StateListener from '@components/game/StateListener';
+import Modal from '@components/ui/Modal';
 
 function Game() {
   return (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { colorClasses, COLORS } from '@util/gameUtil';
 import { useGameContext } from '@hooks/useGameContext';
 import { AppActions } from '@context/reducer';
@@ -10,8 +10,15 @@ type DotProps = {
 };
 
 export default function Dot({ position, disabled }: DotProps) {
-  const { dispatch } = useGameContext();
+  const {
+    dispatch,
+    state: { isGameOver, secret },
+  } = useGameContext();
   const [colorIndex, setColorIndex] = useState<number>(-1);
+
+  useEffect(() => {
+    setColorIndex(-1);
+  }, [isGameOver, secret]);
 
   const handleClick = () => {
     const newIndex = (colorIndex + 1) % COLORS.length;
@@ -22,6 +29,7 @@ export default function Dot({ position, disabled }: DotProps) {
       payload: { position, color: colorName },
     });
   };
+
   const color = colorIndex >= 0 ? COLORS[colorIndex] : '';
 
   return (

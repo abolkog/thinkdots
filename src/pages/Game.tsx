@@ -1,15 +1,15 @@
-import Controls from '@components/game/Controls';
-import GameBoard from '@components/game/GameBoard';
-import Header from '@components/game/Header';
-import StateListener from '@components/game/StateListener';
-import Modal from '@components/ui/Modal';
+import Controls from "@components/game/Controls";
+import GameBoard from "@components/game/GameBoard";
+import Header from "@components/game/Header";
+import StateListener from "@components/game/StateListener";
+import Modal from "@components/ui/Modal";
 
-function App() {
+function Game() {
   return (
-    <section className='w-full sm:w-[60%] lg:w-[90%] flex flex-col justify-center items-center'>
+    <section className="w-full sm:w-[60%] lg:w-[90%] flex flex-col justify-center items-center">
       <Header />
 
-      <div className='flex flex-col items-center justify-center w-full bg-black-300 p-5 mb-10 rounded-2x'>
+      <div className="flex flex-col items-center justify-center w-full bg-black-300 p-5 mb-10 rounded-2x">
         <GameBoard />
       </div>
       <Controls />
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default Game;

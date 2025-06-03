@@ -1,6 +1,6 @@
 # ThinkDots
 
-A simple, open-source color code-breaking game inspired by Giiker.
+A simple, open-source color code-breaking game inspired by Giiker Super Decoder.
 
 Guess the secret color sequence using logic and feedback. Can you crack the code?
 

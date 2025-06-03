@@ -2,6 +2,11 @@ name: Pull Request
 
 on: [pull_request]
 
+permissions:
+  checks: write
+  pull-requests: write
+  contents: read
+
 env:
   HUSKY: 0
 
@@ -9,10 +14,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
       - name: Install dependencies

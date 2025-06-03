@@ -1,36 +1,64 @@
 # ThinkDots
 
-WIP
+A simple, open-source color code-breaking game inspired by Giiker.
+
+Guess the secret color sequence using logic and feedback. Can you crack the code?
+
+## Features
+
+- Interactive color palette and code-breaking gameplay
+- Feedback system: green for correct color & position, white for correct color wrong position, gray for absent color
+- Multiple difficulty levels
+- Responsive, accessible UI
+- Built with React, Vite, and Tailwind CSS
+
+## How to Play
+
+1. The game generates a secret color code.
+2. Click each dot to select your guess for each position.
+3. Submit your guess. You will receive feedback:
+   - **Green dot:** Correct color in the correct position
+   - **White dot:** Correct color, wrong position
+   - **Gray dot:** Color not in the code
+4. Use the feedback to refine your next guess.
+5. Win by guessing the exact sequence before you run out of attempts!
 
 ## Run it locally
 
-1- Clone the Repo
+1. **Clone the Repo**
 
-2- If you are using `nvm`, setup node version using the `.nvmrc` file
+```shell
+  git clone https://github.com/abolkog/thinkdots.git
+  cd thinkdots
+```
+
+2. **Set up Node version (if using `nvm`):**
 
 ```shell
 nvm use
 ```
 
-3- Install the dependencies
+3. **Install the dependencies**
 
 ```shell
 npm i
 ```
 
-4- Start the dev server
+4. **Start the dev server**
 
 ```shell
 npm run dev
 ```
 
-5- Visit [http://localhost:3000](http://localhost:3000) on your browser.
+5. **Open[http://localhost:3000](http://localhost:3000) on your browser**.
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome!  
+For major changes, please [open an issue](https://github.com/abolkog/thinkdots/issues) first to discuss what you would like to change.
 
-Please make sure to update tests as appropriate.
+- Please make sure to update tests as appropriate.
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
 
 ## Authors
 

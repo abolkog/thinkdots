@@ -1,8 +1,14 @@
 # ThinkDots
 
+[![Build Status](https://github.com/abolkog/thinkdots/actions/workflows/pull_request.yml/badge.svg)](https://github.com/abolkog/thinkdots/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/abolkog/thinkdots/pulls)
+
 A simple, open-source color code-breaking game inspired by Giiker Super Decoder.
 
 Guess the secret color sequence using logic and feedback. Can you crack the code?
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20Here-brightgreen?style=for-the-badge)](https://abolkog.github.io/thinkdots/)
 
 ## Features
 
@@ -11,6 +17,10 @@ Guess the secret color sequence using logic and feedback. Can you crack the code
 - Multiple difficulty levels
 - Responsive, accessible UI
 - Built with React, Vite, and Tailwind CSS
+
+## Screenshot
+
+![think dots](./public/think_dots.jpg)
 
 ## How to Play
 
@@ -22,6 +32,19 @@ Guess the secret color sequence using logic and feedback. Can you crack the code
    - **Gray dot:** Color not in the code
 4. Use the feedback to refine your next guess.
 5. Win by guessing the exact sequence before you run out of attempts!
+
+### Feedback System
+
+- **Easy Mode:**  
+  After each guess, you receive feedback for every dot:
+
+  - 🟢 **Green:** Correct color in the correct position.
+  - ⚪ **White:** Correct color, wrong position.
+  - ⚫ **Gray:** Color not in the code.
+
+- **Pro Mode:**  
+  After each guess, you receive only a summary for the whole row:
+  - Example: “2 correct, 1 present” means two colors are correct and in the right position, and one color is correct but in the wrong position. You won’t know which dots are which.
 
 ## Run it locally
 
@@ -50,7 +73,7 @@ npm i
 npm run dev
 ```
 
-5. **Open[http://localhost:3000](http://localhost:3000) on your browser**.
+5. **Open [http://localhost:3000](http://localhost:3000) on your browser**.
 
 ## Contributing
 

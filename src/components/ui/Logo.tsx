@@ -1,5 +1,5 @@
 import AppLogo from '@assets/think-dots-light.svg';
-import { classNames } from '@util/common';
+import { classNames } from '@util/gameUtil';
 
 type LogoProps = {
   cssClass?: string;
@@ -14,7 +14,7 @@ export default function Logo({ cssClass = '' }: LogoProps) {
           cssClass
         )}
       >
-        <img src={AppLogo} alt='think-dots' />
+        <img src={AppLogo} alt="think-dots" />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { colorClasses, COLORS } from '@util/gameUtil';
+import { classNames } from '@util/gameUtil';
 import { useGameContext } from '@hooks/useGameContext';
 import { AppActions } from '@context/reducer';
-import { classNames } from '@util/common';
+import { colorClasses, COLORS } from '@util/common';
 
 type DotProps = {
   position: number;

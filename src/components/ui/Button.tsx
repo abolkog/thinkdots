@@ -1,4 +1,4 @@
-import { classNames } from '@util/common';
+import { classNames } from '@util/gameUtil';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;

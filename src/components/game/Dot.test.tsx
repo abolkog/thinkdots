@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Dot from '@components/game/Dot';
 import { GameContext } from '@context/GameContext';
-import { COLORS } from '@util/gameUtil';
 import { mockState } from '@test/fixtures';
+import { COLORS } from '@util/common';
 
 const mockDispatch = jest.fn();
 
@@ -31,7 +31,7 @@ describe('Dot', () => {
       </GameContext.Provider>
     );
     const button = screen.getByRole('button');
-    COLORS.forEach(color => {
+    COLORS.forEach((color) => {
       fireEvent.click(button);
       expect(mockDispatch).toHaveBeenLastCalledWith({
         type: 'SET_GUESS',

@@ -1,5 +1,6 @@
 import { useGameContext } from '@hooks/useGameContext';
-import { classNames, FEEDBACK_COLORS, GUESS_STATUS } from '@util/common';
+import { FEEDBACK_COLORS, GUESS_STATUS } from '@util/common';
+import { classNames } from '@util/gameUtil';
 
 type DotFeedbackProps = {
   position: number;

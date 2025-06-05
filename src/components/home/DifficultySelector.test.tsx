@@ -34,7 +34,7 @@ describe('DifficultySelector', () => {
     fireEvent.click(proButton);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'SET_DIFFICULTY',
-      payload: { isEasyMode: false, showPalette: false },
+      payload: { isEasyMode: false },
     });
   });
 

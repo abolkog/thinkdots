@@ -12,13 +12,13 @@ type DotProps = {
 export default function Dot({ position, disabled }: DotProps) {
   const {
     dispatch,
-    state: { isGameOver, secret },
+    state: { secret },
   } = useGameContext();
   const [colorIndex, setColorIndex] = useState<number>(-1);
 
   useEffect(() => {
     setColorIndex(-1);
-  }, [isGameOver, secret]);
+  }, [secret]);
 
   const handleClick = () => {
     const newIndex = (colorIndex + 1) % COLORS.length;

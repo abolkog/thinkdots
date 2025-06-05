@@ -6,17 +6,17 @@ import DotFeedback from './DotFeedback';
 
 export default function GuessRow({ rowNumber }: { rowNumber: number }) {
   const { state } = useGameContext();
-  const disabled = state.isGameOver || state.guessNumber > rowNumber;
-  const hideDotFeedback =
-    state.isGameOver || !state.isEasyMode || state.guessNumber <= rowNumber;
-  const hideRowFeedback = state.isGameOver || state.isEasyMode;
+  const { isEasyMode, guessNumber } = state;
+  const isRowActive = guessNumber === rowNumber;
+
+  const hideDotFeedback = !state.isEasyMode || state.guessNumber <= rowNumber;
 
   return (
     <div className="flex items-center space-x-4">
       <div className="flex space-x-2">
         {[...Array(COLORS_PER_ROW)].map((_, i) => (
           <div className="flex flex-col justify-center items-center" key={i}>
-            <Dot position={i} disabled={disabled} />
+            <Dot position={i} disabled={!isRowActive} />
             <DotFeedback
               rowNumber={rowNumber}
               position={i}
@@ -25,7 +25,7 @@ export default function GuessRow({ rowNumber }: { rowNumber: number }) {
           </div>
         ))}
       </div>
-      <RowFeedback rowNumber={rowNumber} hidden={hideRowFeedback} />
+      <RowFeedback rowNumber={rowNumber} hidden={isEasyMode} />
     </div>
   );
 }

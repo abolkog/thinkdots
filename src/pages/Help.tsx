@@ -41,10 +41,7 @@ function Help() {
         <li>
           <strong>Making a Guess:</strong>
           <ul className="list-disc list-inside ml-6">
-            <li>
-              Click on each dot to cycle through the available colors and set
-              your guess for each position.
-            </li>
+            <li>Click on each dot set your guess for each position.</li>
             <li>
               Once you have selected a color for every dot in the row, the
               "Submit Guess" button will be enabled.

@@ -9,7 +9,6 @@ export const AppActions = {
   TOGGLE_MODAL: 'TOGGLE_MODAL',
   RESET_GAME: 'RESET_GAME',
   SET_DIFFICULTY: 'SET_DIFFICULTY',
-  TOGGLE_PALETTE: 'TOGGLE_PALETTE',
 };
 
 export default function reducer(state: AppState, action: AppAction): AppState {
@@ -57,7 +56,6 @@ export default function reducer(state: AppState, action: AppAction): AppState {
         ...initialState,
         ...initSecretCodeAndColorPalette(),
         isEasyMode: state.isEasyMode,
-        showPalette: state.showPalette,
       };
     }
     case AppActions.TOGGLE_MODAL: {
@@ -68,21 +66,13 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       };
     }
     case AppActions.SET_DIFFICULTY: {
-      const { isEasyMode, showPalette } = action.payload as {
+      const { isEasyMode } = action.payload as {
         isEasyMode: boolean;
-        showPalette: boolean;
       };
 
       return {
         ...state,
         isEasyMode,
-        showPalette,
-      };
-    }
-    case AppActions.TOGGLE_PALETTE: {
-      return {
-        ...state,
-        showPalette: action.payload as boolean,
       };
     }
     default:

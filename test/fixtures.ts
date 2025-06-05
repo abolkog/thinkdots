@@ -11,5 +11,4 @@ export const mockState: AppState = {
   isValidGuess: false,
   isGameOver: false,
   isEasyMode: true,
-  showPalette: false,
 };

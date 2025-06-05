@@ -10,7 +10,6 @@ const initialState: AppState = {
   isValidGuess: false,
   isGameOver: false,
   isEasyMode: true,
-  showPalette: false,
 };
 
 describe('reducer', () => {
@@ -95,7 +94,6 @@ describe('reducer', () => {
         feedback: {},
         guesses: [],
         isEasyMode: true,
-        showPalette: false,
       });
     });
 
@@ -108,14 +106,10 @@ describe('reducer', () => {
       expect(state.colorPalette).not.toEqual(initialState.colorPalette);
     });
 
-    it('keeps isEasyMode and showPalette', () => {
+    it('keeps isEasyMode value', () => {
       const action = { type: AppActions.RESET_GAME };
-      const state = reducer(
-        { ...initialState, isEasyMode: false, showPalette: true },
-        action
-      );
+      const state = reducer({ ...initialState, isEasyMode: false }, action);
       expect(state.isEasyMode).toEqual(false);
-      expect(state.showPalette).toEqual(true);
     });
   });
 
@@ -132,25 +126,13 @@ describe('reducer', () => {
   });
 
   describe('SET_DIFFICULTY', () => {
-    it('updates isEasyMode and showPalette', () => {
+    it('updates isEasyMode', () => {
       const action = {
         type: AppActions.SET_DIFFICULTY,
-        payload: { isEasyMode: false, showPalette: true },
+        payload: { isEasyMode: false },
       };
       const state = reducer(initialState, action);
       expect(state.isEasyMode).toEqual(false);
-      expect(state.showPalette).toEqual(true);
-    });
-  });
-
-  describe('TOGGLE_PALETTE', () => {
-    it('toggles the showPalette state', () => {
-      const action = {
-        type: AppActions.TOGGLE_PALETTE,
-        payload: true,
-      };
-      const state = reducer(initialState, action);
-      expect(state.showPalette).toEqual(true);
     });
   });
 

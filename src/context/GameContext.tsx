@@ -10,7 +10,6 @@ export const initialState: AppState = {
   isValidGuess: false,
   isGameOver: false,
   isEasyMode: true,
-  showPalette: false,
 };
 
 export const GameContext = createContext<GameContextType>({

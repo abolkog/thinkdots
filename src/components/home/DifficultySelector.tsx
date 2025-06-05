@@ -5,29 +5,16 @@ import { classNames } from '@util/gameUtil';
 
 export default function DifficultySelector() {
   const { state, dispatch } = useContext(GameContext);
-  const { isEasyMode, showPalette } = state;
+  const { isEasyMode } = state;
   const baseClass =
     'w-1/2 mx-auto flex justify-center items-center uppercase cursor-pointer';
   const activeClass =
     'bg-gray-400 rounded-lg px-3 py-3 ml-3 font-bold text-lg text-black';
 
   const handleDifficultyChange = (easyMode: boolean) => {
-    let shouldShowPalette = showPalette;
-    if (!easyMode) {
-      shouldShowPalette = false;
-    }
-
     dispatch({
       type: AppActions.SET_DIFFICULTY,
-      payload: { isEasyMode: easyMode, showPalette: shouldShowPalette },
-    });
-  };
-
-  const handleShowPaletteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.checked;
-    dispatch({
-      type: AppActions.TOGGLE_PALETTE,
-      payload: value,
+      payload: { isEasyMode: easyMode },
     });
   };
 
@@ -52,27 +39,6 @@ export default function DifficultySelector() {
           Pro
         </button>
       </article>
-
-      <div
-        className={classNames(
-          'flex items-center justify-center mb-5',
-          !isEasyMode ? 'hidden' : ''
-        )}
-      >
-        <input
-          id="show-palette"
-          type="checkbox"
-          checked={showPalette}
-          onChange={handleShowPaletteChange}
-          className="form-checkbox h-5 w-5 accent-blue-400 bg-black-400 border-gray-500 rounded focus:ring-2 focus:ring-gray-400"
-        />
-        <label
-          htmlFor="show-palette"
-          className="ml-2 text-blue-400 select-none text-lg font-bold"
-        >
-          Show Color Palette
-        </label>
-      </div>
     </article>
   );
 }

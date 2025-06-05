@@ -18,7 +18,6 @@ export type AppState = {
   isGameOver: boolean;
   modal?: ModalProps;
   isEasyMode: boolean;
-  showPalette: boolean;
 };
 
 export type GameContextType = {

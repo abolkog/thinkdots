@@ -6,38 +6,49 @@ import { COLORS } from '@util/common';
 
 const mockDispatch = jest.fn();
 
+function renderComponent({ position = 0, disabled = false } = {}) {
+  return render(
+    <GameContext.Provider value={{ state: mockState, dispatch: mockDispatch }}>
+      <Dot position={position} disabled={disabled} />
+    </GameContext.Provider>
+  );
+}
+
 describe('Dot', () => {
   beforeEach(() => {
     mockDispatch.mockClear();
   });
 
   it('renders a button', () => {
-    render(
-      <GameContext.Provider
-        value={{ state: mockState, dispatch: mockDispatch }}
-      >
-        <Dot position={0} disabled={false} />
-      </GameContext.Provider>
-    );
+    renderComponent();
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
-  it('cycles through colors on click and dispatches SET_GUESS', () => {
-    render(
-      <GameContext.Provider
-        value={{ state: mockState, dispatch: mockDispatch }}
-      >
-        <Dot position={1} disabled={false} />
-      </GameContext.Provider>
-    );
+  it('disables the button if disabled is true', () => {
+    renderComponent({ disabled: true });
     const button = screen.getByRole('button');
-    COLORS.forEach((color) => {
-      fireEvent.click(button);
-      expect(mockDispatch).toHaveBeenLastCalledWith({
-        type: 'SET_GUESS',
-        payload: { position: 1, color },
-      });
-      expect(button.className).toContain(`bg-${color}-500`);
+    expect(button).toBeDisabled();
+  });
+
+  it('shows color panel when clicked and dispatches on color select', () => {
+    renderComponent();
+
+    const mainButton = screen.getByRole('button');
+    fireEvent.click(mainButton);
+
+    const colorButtons = screen.getAllByRole('button');
+
+    // First button is the PopoverButton
+    const colorButton = colorButtons[1];
+
+    fireEvent.click(colorButton);
+
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: 'SET_GUESS',
+      payload: {
+        position: 0,
+        color: COLORS[0],
+      },
     });
   });
 });

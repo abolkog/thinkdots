@@ -3,11 +3,15 @@ import { useNavigate, NavLink } from 'react-router';
 import DifficultySelector from '@components/home/DifficultySelector';
 import Button from '@components/ui/Button';
 import Logo from '@components/ui/Logo';
+import { useSound } from '@hooks/useSound';
 
 function Home() {
   const navigate = useNavigate();
+  const { stopBg, playBg } = useSound();
 
   const handleNewGame = () => {
+    stopBg();
+    playBg();
     navigate('/game');
   };
 

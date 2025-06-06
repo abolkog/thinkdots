@@ -5,6 +5,7 @@ import { classNames } from '@util/gameUtil';
 import { useGameContext } from '@hooks/useGameContext';
 import { AppActions } from '@context/reducer';
 import { colorClasses, COLORS } from '@util/common';
+import { useSound } from '@hooks/useSound';
 
 type DotProps = {
   position: number;
@@ -13,6 +14,7 @@ type DotProps = {
 
 export default function Dot({ position, disabled }: DotProps) {
   const { dispatch, state } = useGameContext();
+  const { playSetColor } = useSound();
   const { secret } = state;
   const [color, setColor] = useState<string>('');
 
@@ -21,6 +23,7 @@ export default function Dot({ position, disabled }: DotProps) {
   }, [secret]);
 
   const handleClick = (value: string) => {
+    playSetColor();
     setColor(value);
     dispatch({
       type: AppActions.SET_GUESS,

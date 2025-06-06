@@ -1,3 +1,3 @@
-const { PROD, BASE_URL } = import.meta.env;
+const { BASE_URL } = import.meta.env;
 
-export { PROD, BASE_URL };
+export { BASE_URL };

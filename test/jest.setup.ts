@@ -18,6 +18,5 @@ jest.mock('@hooks/useSound', () => ({
 }));
 
 jest.mock('@util/envHelper', () => ({
-  PROD: true,
   BASE_URL: '/',
 }));

@@ -16,3 +16,8 @@ jest.mock('@hooks/useSound', () => ({
     playWin: jest.fn(),
   }),
 }));
+
+jest.mock('@util/envHelper', () => ({
+  PROD: true,
+  BASE_URL: '/',
+}));

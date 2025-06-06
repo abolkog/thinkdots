@@ -1,8 +1,7 @@
 import { Howl } from 'howler';
+import { BASE_URL } from '@util/envHelper';
 
-const isProd = process.env.NODE_ENV === 'production';
-
-const base = isProd ? '/thinkdots/' : '/';
+const base = BASE_URL;
 
 const sounds = {
   bg: new Howl({ src: [`${base}sounds/bg.mp3`], loop: true, volume: 0.3 }),

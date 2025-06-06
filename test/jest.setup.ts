@@ -6,3 +6,13 @@ global.ResizeObserver = class {
   unobserve() {}
   disconnect() {}
 };
+
+jest.mock('@hooks/useSound', () => ({
+  useSound: () => ({
+    playBg: jest.fn(),
+    stopBg: jest.fn(),
+    playSetColor: jest.fn(),
+    playGameOver: jest.fn(),
+    playWin: jest.fn(),
+  }),
+}));

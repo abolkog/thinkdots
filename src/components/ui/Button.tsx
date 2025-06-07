@@ -5,12 +5,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   cssClass?: string;
 };
 
-export default function Button({
-  children,
-  onClick,
-  cssClass = '',
-  disabled = false,
-}: ButtonProps) {
+export default function Button({ children, onClick, cssClass = '', disabled = false }: ButtonProps) {
   return (
     <button
       disabled={disabled}

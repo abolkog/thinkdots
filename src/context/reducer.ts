@@ -1,7 +1,7 @@
 import { COLORS_PER_ROW } from '@util/common';
 import type { AppAction, AppState, ModalProps } from '@context/types';
 import { initialState } from '@context/GameContext';
-import { getGuessStatus, initSecretCodeAndColorPalette } from '@util/gameUtil';
+import { getGuessStatus, initSecretCodeAndColorPalette, updateStats } from '@util/gameUtil';
 
 export const AppActions = {
   SET_GUESS: 'SET_GUESS',
@@ -9,6 +9,8 @@ export const AppActions = {
   TOGGLE_MODAL: 'TOGGLE_MODAL',
   RESET_GAME: 'RESET_GAME',
   SET_DIFFICULTY: 'SET_DIFFICULTY',
+  OPEN_SIDE_PANEL: 'OPEN_SIDE_PANEL',
+  CLOSE_SIDE_PANEL: 'CLOSE_SIDE_PANEL',
 };
 
 export default function reducer(state: AppState, action: AppAction): AppState {
@@ -20,9 +22,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       };
       const newGuesses = [...state.guesses];
       newGuesses[position] = color;
-      const isValidGuess =
-        newGuesses.every((guess) => guess) &&
-        new Set(newGuesses).size === COLORS_PER_ROW;
+      const isValidGuess = newGuesses.every((guess) => guess) && new Set(newGuesses).size === COLORS_PER_ROW;
       return {
         ...state,
         guesses: newGuesses,
@@ -32,9 +32,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
     case AppActions.VALIDATE_GUESS: {
       const { guesses, secret, feedback } = state;
 
-      const validationResult = guesses.map((guess, idx) =>
-        getGuessStatus(guess, secret, idx)
-      );
+      const validationResult = guesses.map((guess, idx) => getGuessStatus(guess, secret, idx));
       const isGameOver = guesses.every((val, idx) => val === secret[idx]);
 
       const updatedFeedback = {
@@ -52,10 +50,13 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       };
     }
     case AppActions.RESET_GAME: {
+      const { isGameOver, guessNumber, playerState } = state;
+      const updatedPlayerState = updateStats(playerState, guessNumber, isGameOver);
       return {
         ...initialState,
         ...initSecretCodeAndColorPalette(),
         isEasyMode: state.isEasyMode,
+        playerState: updatedPlayerState,
       };
     }
     case AppActions.TOGGLE_MODAL: {
@@ -69,11 +70,13 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       const { isEasyMode } = action.payload as {
         isEasyMode: boolean;
       };
-
-      return {
-        ...state,
-        isEasyMode,
-      };
+      return { ...state, isEasyMode };
+    }
+    case AppActions.OPEN_SIDE_PANEL: {
+      return { ...state, sidePanelOpen: true };
+    }
+    case AppActions.CLOSE_SIDE_PANEL: {
+      return { ...state, sidePanelOpen: false };
     }
     default:
       return state;

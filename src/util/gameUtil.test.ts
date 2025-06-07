@@ -1,5 +1,17 @@
+import type { PlayerStats } from '@context/types';
+import * as StorageService from '@services/storage';
 import { GUESS_STATUS } from './common';
-import { getGuessStatus, initSecretCodeAndColorPalette } from './gameUtil';
+import {
+  getGuessStatus,
+  getPlayerStateFromStorage,
+  initSecretCodeAndColorPalette,
+  savePlayerStats,
+  updateStats,
+} from './gameUtil';
+
+jest.mock('@services/storage');
+
+const mockedStorageService = StorageService as jest.Mocked<typeof StorageService>;
 
 describe('GameUtil', () => {
   describe('initSecretCodeAndColorPalette', () => {
@@ -60,6 +72,103 @@ describe('GameUtil', () => {
       const idx = 0;
       const status = getGuessStatus(guess, secret, idx);
       expect(status).toEqual(GUESS_STATUS.ABSENT);
+    });
+  });
+
+  describe('getPlayerStateFromStorage', () => {
+    beforeEach(jest.clearAllMocks);
+
+    it('returns default stats if nothing in storage', () => {
+      mockedStorageService.getItem.mockReturnValue('');
+      const stats = getPlayerStateFromStorage();
+      expect(stats).toEqual({
+        totalGames: 0,
+        wins: 0,
+        losses: 0,
+        fastestSolve: 0,
+        averageGuesses: 0,
+        currentStreak: 0,
+        maxStreak: 0,
+      });
+    });
+
+    it('returns parsed stats from storage', () => {
+      const stored: PlayerStats = {
+        totalGames: 5,
+        wins: 3,
+        losses: 2,
+        fastestSolve: 2,
+        averageGuesses: 4,
+        currentStreak: 1,
+        maxStreak: 2,
+      };
+      mockedStorageService.getItem.mockReturnValue(JSON.stringify(stored));
+      const stats = getPlayerStateFromStorage();
+      expect(stats).toEqual(stored);
+    });
+  });
+
+  describe('savePlayerStats', () => {
+    beforeEach(jest.clearAllMocks);
+
+    it('calls setItem with correct arguments', () => {
+      const stats: PlayerStats = {
+        totalGames: 10,
+        wins: 7,
+        losses: 3,
+        fastestSolve: 1,
+        averageGuesses: 3,
+        currentStreak: 2,
+        maxStreak: 5,
+      };
+      savePlayerStats(stats);
+      expect(mockedStorageService.setItem).toHaveBeenCalledWith('playerStats', JSON.stringify(stats));
+    });
+  });
+
+  describe('updateStats', () => {
+    it('should update stats correctly for a win', () => {
+      const initialStats: PlayerStats = {
+        totalGames: 5,
+        wins: 3,
+        losses: 2,
+        fastestSolve: 2,
+        averageGuesses: 4,
+        currentStreak: 1,
+        maxStreak: 2,
+      };
+      const updatedStats = updateStats(initialStats, 3, true);
+      expect(updatedStats).toEqual({
+        totalGames: 6,
+        wins: 4,
+        losses: 2,
+        fastestSolve: 2,
+        averageGuesses: 4,
+        currentStreak: 2,
+        maxStreak: 2,
+      });
+    });
+
+    it('should update stats correctly for a loss', () => {
+      const initialStats: PlayerStats = {
+        totalGames: 5,
+        wins: 3,
+        losses: 2,
+        fastestSolve: 2,
+        averageGuesses: 4,
+        currentStreak: 1,
+        maxStreak: 2,
+      };
+      const updatedStats = updateStats(initialStats, 4, false);
+      expect(updatedStats).toEqual({
+        totalGames: 6,
+        wins: 3,
+        losses: 3,
+        fastestSolve: 2,
+        averageGuesses: 4,
+        currentStreak: 0,
+        maxStreak: 2,
+      });
     });
   });
 });

@@ -31,6 +31,7 @@ export default tseslint.config(
           ignoreRestSiblings: true,
         },
       ],
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     },
   }
 );

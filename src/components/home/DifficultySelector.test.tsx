@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import DifficultySelector from './DifficultySelector';
 import { mockState } from '@test/fixtures';
 import { GameContext } from '@context/GameContext';
+import { AppActions } from '@context/reducer';
 
 const mockDispatch = jest.fn();
 
@@ -9,11 +10,10 @@ describe('DifficultySelector', () => {
   beforeEach(() => {
     mockDispatch.mockClear();
   });
+
   it('renders without crashing', () => {
     render(
-      <GameContext.Provider
-        value={{ state: mockState, dispatch: mockDispatch }}
-      >
+      <GameContext.Provider value={{ state: { ...mockState, isEasyMode: false }, dispatch: mockDispatch }}>
         <DifficultySelector />
       </GameContext.Provider>
     );
@@ -23,9 +23,7 @@ describe('DifficultySelector', () => {
 
   it('toggles difficulty on button click', () => {
     render(
-      <GameContext.Provider
-        value={{ state: mockState, dispatch: mockDispatch }}
-      >
+      <GameContext.Provider value={{ state: mockState, dispatch: mockDispatch }}>
         <DifficultySelector />
       </GameContext.Provider>
     );
@@ -33,16 +31,21 @@ describe('DifficultySelector', () => {
     const proButton = screen.getByRole('button', { name: /pro/i });
     fireEvent.click(proButton);
     expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'SET_DIFFICULTY',
+      type: AppActions.SET_DIFFICULTY,
       payload: { isEasyMode: false },
+    });
+
+    const easyButton = screen.getByRole('button', { name: /easy/i });
+    fireEvent.click(easyButton);
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: AppActions.SET_DIFFICULTY,
+      payload: { isEasyMode: true },
     });
   });
 
   it('applies active class to selected difficulty', () => {
     render(
-      <GameContext.Provider
-        value={{ state: mockState, dispatch: mockDispatch }}
-      >
+      <GameContext.Provider value={{ state: mockState, dispatch: mockDispatch }}>
         <DifficultySelector />
       </GameContext.Provider>
     );

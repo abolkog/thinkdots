@@ -14,14 +14,21 @@ describe('RowFeedback', () => {
 
   it('renders the correct number of feedback dots', () => {
     render(
-      <GameContext.Provider
-        value={{ state: mockState, dispatch: mockDispatch }}
-      >
+      <GameContext.Provider value={{ state: mockState, dispatch: mockDispatch }}>
         <RowFeedback {...baseProps} />
       </GameContext.Provider>
     );
     const dots = screen.getAllByRole('presentation');
     expect(dots.length).toEqual(COLORS_PER_ROW);
+  });
+
+  it('does renders when no feedback', () => {
+    render(
+      <GameContext.Provider value={{ state: mockState, dispatch: mockDispatch }}>
+        <RowFeedback {...baseProps} rowNumber={1} />
+      </GameContext.Provider>
+    );
+    expect(screen.queryByText('presentation')).not.toBeInTheDocument();
   });
 
   it('shows green dots for correct guesses', () => {
@@ -35,12 +42,8 @@ describe('RowFeedback', () => {
         <RowFeedback {...baseProps} />
       </GameContext.Provider>
     );
-    const dots = screen
-      .getByTestId('feedback-container')
-      .querySelectorAll('div');
-    const greenDots = Array.from(dots).filter((dot) =>
-      dot.className.includes('bg-green-500')
-    );
+    const dots = screen.getByTestId('feedback-container').querySelectorAll('div');
+    const greenDots = Array.from(dots).filter((dot) => dot.className.includes('bg-green-500'));
     expect(greenDots.length).toEqual(2);
   });
 
@@ -55,24 +58,16 @@ describe('RowFeedback', () => {
         <RowFeedback {...baseProps} />
       </GameContext.Provider>
     );
-    const dots = screen
-      .getByTestId('feedback-container')
-      .querySelectorAll('div');
+    const dots = screen.getByTestId('feedback-container').querySelectorAll('div');
     const dotsArray = Array.from(dots);
 
-    const greenDots = dotsArray.filter((dot) =>
-      dot.className.includes('bg-green-500')
-    );
+    const greenDots = dotsArray.filter((dot) => dot.className.includes('bg-green-500'));
     expect(greenDots.length).toEqual(1);
 
-    const whiteDots = dotsArray.filter((dot) =>
-      dot.className.includes('bg-white')
-    );
+    const whiteDots = dotsArray.filter((dot) => dot.className.includes('bg-white'));
     expect(whiteDots.length).toEqual(2);
 
-    const grayDots = dotsArray.filter((dot) =>
-      dot.className.includes('bg-gray-500')
-    );
+    const grayDots = dotsArray.filter((dot) => dot.className.includes('bg-gray-500'));
     expect(grayDots.length).toEqual(1);
   });
 
@@ -87,12 +82,8 @@ describe('RowFeedback', () => {
         <RowFeedback {...baseProps} />
       </GameContext.Provider>
     );
-    const dots = screen
-      .getByTestId('feedback-container')
-      .querySelectorAll('div');
-    const greenDots = Array.from(dots).filter((dot) =>
-      dot.className.includes('bg-green-500')
-    );
+    const dots = screen.getByTestId('feedback-container').querySelectorAll('div');
+    const greenDots = Array.from(dots).filter((dot) => dot.className.includes('bg-green-500'));
     expect(greenDots.length).toEqual(COLORS_PER_ROW);
   });
 });

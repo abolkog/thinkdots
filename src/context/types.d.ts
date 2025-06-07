@@ -18,6 +18,8 @@ export type AppState = {
   isGameOver: boolean;
   modal?: ModalProps;
   isEasyMode: boolean;
+  sidePanelOpen: boolean;
+  playerState: PlayerStats;
 };
 
 export type GameContextType = {
@@ -28,4 +30,14 @@ export type GameContextType = {
 export type AppAction = {
   type: string;
   payload?: unknown;
+};
+
+export type PlayerStats = {
+  totalGames: number;
+  wins: number;
+  losses: number;
+  fastestSolve: number;
+  averageGuesses: number;
+  currentStreak: number;
+  maxStreak: number;
 };

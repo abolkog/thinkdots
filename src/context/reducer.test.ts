@@ -1,16 +1,6 @@
 import reducer, { AppActions } from '@context/reducer';
-import type { AppAction, AppState } from '@context/types';
-
-const initialState: AppState = {
-  guesses: [],
-  secret: ['red', 'blue', 'green', 'yellow'],
-  colorPalette: ['red', 'blue', 'green', 'yellow'],
-  feedback: {},
-  guessNumber: 1,
-  isValidGuess: false,
-  isGameOver: false,
-  isEasyMode: true,
-};
+import type { AppAction } from '@context/types';
+import { mockState } from '@test/fixtures';
 
 describe('reducer', () => {
   describe('SET_GUESS', () => {
@@ -19,14 +9,14 @@ describe('reducer', () => {
         type: AppActions.SET_GUESS,
         payload: { position: 0, color: 'red' },
       };
-      const state = reducer(initialState, action);
+      const state = reducer(mockState, action);
       expect(state.guesses[0]).toEqual('red');
       expect(state.isValidGuess).toEqual(false);
     });
 
     it('set isValidGuess to true when all guesses are set', () => {
       const filledState = {
-        ...initialState,
+        ...mockState,
         guesses: ['red', 'blue', '', 'yellow'],
       };
 
@@ -41,7 +31,7 @@ describe('reducer', () => {
 
   describe('VALIDATE_GUESS', () => {
     const baseState = {
-      ...initialState,
+      ...mockState,
       guesses: ['red', 'blue', 'green', 'yellow'],
       secret: ['red', 'blue', 'green', 'yellow'],
       feedback: {},
@@ -83,9 +73,9 @@ describe('reducer', () => {
   describe('RESET_GAME', () => {
     it('reset all default values', () => {
       const action = { type: AppActions.RESET_GAME };
-      const state = reducer(initialState, action);
+      const state = reducer(mockState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...mockState,
         secret: expect.any(Array),
         colorPalette: expect.any(Array),
         guessNumber: 1,
@@ -94,22 +84,34 @@ describe('reducer', () => {
         feedback: {},
         guesses: [],
         isEasyMode: true,
+        playerState: expect.any(Object),
       });
     });
 
     it('regenerates secret and colorPalette', () => {
       const action = { type: AppActions.RESET_GAME };
-      const state = reducer(initialState, action);
+      const state = reducer(mockState, action);
       expect(state.secret).toHaveLength(4);
       expect(state.colorPalette).toHaveLength(4);
-      expect(state.secret).not.toEqual(initialState.secret);
-      expect(state.colorPalette).not.toEqual(initialState.colorPalette);
+      expect(state.secret).not.toEqual(mockState.secret);
+      expect(state.colorPalette).not.toEqual(mockState.colorPalette);
     });
 
     it('keeps isEasyMode value', () => {
       const action = { type: AppActions.RESET_GAME };
-      const state = reducer({ ...initialState, isEasyMode: false }, action);
+      const state = reducer({ ...mockState, isEasyMode: false }, action);
       expect(state.isEasyMode).toEqual(false);
+    });
+
+    it('updates playerState with new stats', () => {
+      const action = { type: AppActions.RESET_GAME };
+      const state = reducer(mockState, action);
+      expect(state.playerState).toEqual(
+        expect.objectContaining({
+          totalGames: mockState.playerState.totalGames + 1,
+          wins: mockState.playerState.wins,
+        })
+      );
     });
   });
 
@@ -120,7 +122,7 @@ describe('reducer', () => {
         type: AppActions.TOGGLE_MODAL,
         payload: modal,
       };
-      const state = reducer(initialState, action);
+      const state = reducer(mockState, action);
       expect(state.modal).toEqual(modal);
     });
   });
@@ -131,14 +133,28 @@ describe('reducer', () => {
         type: AppActions.SET_DIFFICULTY,
         payload: { isEasyMode: false },
       };
-      const state = reducer(initialState, action);
+      const state = reducer(mockState, action);
       expect(state.isEasyMode).toEqual(false);
+    });
+  });
+
+  describe('SIDE_PANEL', () => {
+    it('opens side panel', () => {
+      const action = { type: AppActions.OPEN_SIDE_PANEL };
+      const state = reducer(mockState, action);
+      expect(state.sidePanelOpen).toEqual(true);
+    });
+
+    it('closes side panel', () => {
+      const action = { type: AppActions.CLOSE_SIDE_PANEL };
+      const state = reducer({ ...mockState, sidePanelOpen: true }, action);
+      expect(state.sidePanelOpen).toEqual(false);
     });
   });
 
   it('returns state for unknown action', () => {
     const action = { type: 'UNKNOWN_ACTION' } as AppAction;
-    const state = reducer(initialState, action);
-    expect(state).toEqual(initialState);
+    const state = reducer(mockState, action);
+    expect(state).toEqual(mockState);
   });
 });

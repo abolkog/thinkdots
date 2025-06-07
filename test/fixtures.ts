@@ -11,4 +11,14 @@ export const mockState: AppState = {
   isValidGuess: false,
   isGameOver: false,
   isEasyMode: true,
+  sidePanelOpen: false,
+  playerState: {
+    totalGames: 0,
+    wins: 0,
+    losses: 0,
+    fastestSolve: 0,
+    averageGuesses: 0,
+    currentStreak: 0,
+    maxStreak: 0,
+  },
 };

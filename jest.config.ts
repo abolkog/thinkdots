@@ -9,6 +9,7 @@ const config: Config = {
   },
   collectCoverage: true,
   moduleNameMapper: {
+    '\\.svg$': '<rootDir>/test/svg.mock.ts',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@assets/(.*)$': '<rootDir>/src/assets/$1',
@@ -17,6 +18,7 @@ const config: Config = {
     '^@router/(.*)$': '<rootDir>/src/router/$1',
     '^@context/(.*)$': '<rootDir>/src/context/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@test/(.*)$': '<rootDir>/test/$1',
   },
 };

@@ -9,7 +9,7 @@ export const initialState: AppState = {
   feedback: {},
   guessNumber: 1,
   isValidGuess: false,
-  isGameOver: false,
+  isVictory: false,
   isEasyMode: true,
   sidePanelOpen: false,
 };

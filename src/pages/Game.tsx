@@ -10,7 +10,7 @@ function Game() {
     <section className="w-full sm:w-[60%] lg:w-[90%] flex flex-col justify-center items-center">
       <Header />
 
-      <div className="flex flex-col items-center justify-center max-w-96 bg-black-300 p-5 mb-10 rounded-4xl">
+      <div className="flex flex-col items-center justify-center max-w-96 bg-black-300 p-5 mb-5 rounded-4xl">
         <GameBoard />
       </div>
       <Controls />

@@ -33,7 +33,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       const { guesses, secret, feedback } = state;
 
       const validationResult = guesses.map((guess, idx) => getGuessStatus(guess, secret, idx));
-      const isGameOver = guesses.every((val, idx) => val === secret[idx]);
+      const isVictory = guesses.every((val, idx) => val === secret[idx]);
 
       const updatedFeedback = {
         ...feedback,
@@ -42,16 +42,16 @@ export default function reducer(state: AppState, action: AppAction): AppState {
 
       return {
         ...state,
-        guessNumber: isGameOver ? state.guessNumber : state.guessNumber + 1,
+        guessNumber: isVictory ? state.guessNumber : state.guessNumber + 1,
         guesses: [],
         isValidGuess: false,
         feedback: updatedFeedback,
-        isGameOver,
+        isVictory,
       };
     }
     case AppActions.RESET_GAME: {
-      const { isGameOver, guessNumber, playerState } = state;
-      const updatedPlayerState = updateStats(playerState, guessNumber, isGameOver);
+      const { isVictory: isVictory, guessNumber, playerState } = state;
+      const updatedPlayerState = updateStats(playerState, guessNumber, isVictory);
       return {
         ...initialState,
         ...initSecretCodeAndColorPalette(),

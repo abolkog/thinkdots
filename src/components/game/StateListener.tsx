@@ -9,7 +9,7 @@ export default function StateListener() {
   const navigate = useNavigate();
   const { stopBg, playBg, playGameOver, playWin } = useSound();
   const { state, dispatch } = useGameContext();
-  const { isGameOver, guessNumber } = state;
+  const { isVictory, guessNumber } = state;
   const triggeredRef = useRef(false);
 
   const resetGame = useCallback(() => {
@@ -29,25 +29,22 @@ export default function StateListener() {
 
   const manageSound = useCallback(() => {
     stopBg();
-    if (isGameOver) {
+    if (isVictory) {
       playWin();
     } else {
       playGameOver();
     }
-  }, [isGameOver, playGameOver, playWin, stopBg]);
+  }, [isVictory, playGameOver, playWin, stopBg]);
 
   useEffect(() => {
-    if (
-      (isGameOver || guessNumber > NUMBER_OF_ATTEMPTS) &&
-      !triggeredRef.current
-    ) {
+    if ((isVictory || guessNumber > NUMBER_OF_ATTEMPTS) && !triggeredRef.current) {
       manageSound();
       triggeredRef.current = true;
       dispatch({
         type: AppActions.TOGGLE_MODAL,
         payload: {
-          title: isGameOver ? 'Congratulations!' : 'Game Over',
-          message: isGameOver
+          title: isVictory ? 'Congratulations!' : 'Game Over',
+          message: isVictory
             ? `You guessed the secret code in ${guessNumber} attempts!`
             : 'You have used all your guesses. Better luck next time!',
           yesButtonText: 'Play Again',
@@ -59,10 +56,10 @@ export default function StateListener() {
       });
     }
 
-    if (!isGameOver && guessNumber === 1) {
+    if (!isVictory && guessNumber === 1) {
       triggeredRef.current = false;
     }
-  }, [dispatch, exitGame, guessNumber, isGameOver, resetGame, manageSound]);
+  }, [dispatch, exitGame, guessNumber, isVictory, resetGame, manageSound]);
 
   return null;
 }

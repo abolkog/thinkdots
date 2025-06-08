@@ -37,7 +37,7 @@ describe('reducer', () => {
       feedback: {},
       guessNumber: 0,
       isValidGuess: true,
-      isGameOver: false,
+      isVictory: false,
     };
 
     it('reset guesses array', () => {
@@ -47,10 +47,10 @@ describe('reducer', () => {
       expect(state.guesses).toEqual([]);
     });
 
-    it('set isGameOver to true when guess is correct', () => {
+    it('set isVictory to true when guess is correct', () => {
       const action = { type: AppActions.VALIDATE_GUESS };
       const newState = reducer(baseState, action);
-      expect(newState.isGameOver).toEqual(true);
+      expect(newState.isVictory).toEqual(true);
     });
 
     it('update the feedback object and increment guess number', () => {
@@ -80,7 +80,7 @@ describe('reducer', () => {
         colorPalette: expect.any(Array),
         guessNumber: 1,
         isValidGuess: false,
-        isGameOver: false,
+        isVictory: false,
         feedback: {},
         guesses: [],
         isEasyMode: true,

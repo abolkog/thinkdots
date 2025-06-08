@@ -15,7 +15,7 @@ export type AppState = {
   feedback: Record<number, number[]>;
   guessNumber: number;
   isValidGuess: boolean;
-  isGameOver: boolean;
+  isVictory: boolean;
   modal?: ModalProps;
   isEasyMode: boolean;
   sidePanelOpen: boolean;

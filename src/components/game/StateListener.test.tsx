@@ -17,9 +17,7 @@ describe('StateListener', () => {
 
   it('renders without crashing', () => {
     const { container } = render(
-      <GameContext.Provider
-        value={{ state: mockState, dispatch: mockDispatch }}
-      >
+      <GameContext.Provider value={{ state: mockState, dispatch: mockDispatch }}>
         <StateListener />
       </GameContext.Provider>
     );
@@ -31,7 +29,7 @@ describe('StateListener', () => {
     render(
       <GameContext.Provider
         value={{
-          state: { ...mockState, isGameOver: true },
+          state: { ...mockState, isVictory: true },
           dispatch: mockDispatch,
         }}
       >

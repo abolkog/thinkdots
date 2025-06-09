@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/abolkog/thinkdots/pulls)
 
-A simple, open-source color code-breaking game inspired by Giiker Super Decoder.
+A simple, open-source color code-breaking game inspired by Mastermind and Giiker Super Decoder.
 
 Guess the secret color sequence using logic and feedback. Can you crack the code?
 

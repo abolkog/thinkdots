@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router';
+import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/24/solid';
+
 import Button from '@components/ui/Button';
 import { useGameContext } from '@hooks/useGameContext';
 import Logo from '@components/ui/Logo';
 import { AppActions } from '@context/reducer';
 import { NUMBER_OF_ATTEMPTS } from '@util/common';
-import RestartIcon from '@assets/icon-restart.svg';
-import ExitIcon from '@assets/close-x.svg';
 
 const SectionItem = ({ children }: { children: React.ReactNode }) => (
   <div className="flex items-center justify-center h-12">{children}</div>
@@ -94,12 +94,12 @@ export default function Header() {
         <SectionItem>
           <div className="rounded-md bg-gray-500 pb-1">
             <Button onClick={handleResetClick} cssClass="bg-gray-400 rounded-md pb-2">
-              <img src={RestartIcon} alt="Restart Game" className="w-3" />
+              <ArrowUturnLeftIcon className="w-4" />
             </Button>
           </div>
           <div className="rounded-md bg-gray-500 pb-1 ml-5">
             <Button onClick={handleExitClick} cssClass="bg-gray-400 rounded-md pb-2">
-              <img src={ExitIcon} alt="Exit Game" className="w-3" />
+              <XMarkIcon className="w-4" />
             </Button>
           </div>
         </SectionItem>

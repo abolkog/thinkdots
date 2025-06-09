@@ -8,6 +8,7 @@ import {
   savePlayerStats,
   updateStats,
 } from './gameUtil';
+import { mockState } from '@test/fixtures';
 
 jest.mock('@services/storage');
 
@@ -86,9 +87,10 @@ describe('GameUtil', () => {
         wins: 0,
         losses: 0,
         fastestSolve: 0,
-        averageGuesses: 0,
+        fewestGuesses: 0,
         currentStreak: 0,
         maxStreak: 0,
+        lastPlayed: 0,
       });
     });
 
@@ -133,19 +135,21 @@ describe('GameUtil', () => {
         wins: 3,
         losses: 2,
         fastestSolve: 2,
-        averageGuesses: 4,
+        fewestGuesses: 4,
         currentStreak: 1,
         maxStreak: 2,
+        lastPlayed: 0,
       };
-      const updatedStats = updateStats(initialStats, 3, true);
+      const updatedStats = updateStats({ ...mockState, playerState: initialStats, isVictory: true, guessNumber: 5 });
       expect(updatedStats).toEqual({
         totalGames: 6,
         wins: 4,
         losses: 2,
         fastestSolve: 2,
-        averageGuesses: 4,
+        fewestGuesses: 4,
         currentStreak: 2,
         maxStreak: 2,
+        lastPlayed: 0,
       });
     });
 
@@ -155,19 +159,21 @@ describe('GameUtil', () => {
         wins: 3,
         losses: 2,
         fastestSolve: 2,
-        averageGuesses: 4,
+        fewestGuesses: 0,
         currentStreak: 1,
         maxStreak: 2,
+        lastPlayed: 0,
       };
-      const updatedStats = updateStats(initialStats, 4, false);
+      const updatedStats = updateStats({ ...mockState, playerState: initialStats });
       expect(updatedStats).toEqual({
         totalGames: 6,
         wins: 3,
         losses: 3,
         fastestSolve: 2,
-        averageGuesses: 4,
+        fewestGuesses: 0,
         currentStreak: 0,
         maxStreak: 2,
+        lastPlayed: 0,
       });
     });
   });

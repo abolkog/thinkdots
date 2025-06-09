@@ -11,6 +11,7 @@ export const AppActions = {
   SET_DIFFICULTY: 'SET_DIFFICULTY',
   OPEN_SIDE_PANEL: 'OPEN_SIDE_PANEL',
   CLOSE_SIDE_PANEL: 'CLOSE_SIDE_PANEL',
+  INIT_GAME: 'INIT_GAME',
 };
 
 export default function reducer(state: AppState, action: AppAction): AppState {
@@ -50,8 +51,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       };
     }
     case AppActions.RESET_GAME: {
-      const { isVictory: isVictory, guessNumber, playerState } = state;
-      const updatedPlayerState = updateStats(playerState, guessNumber, isVictory);
+      const updatedPlayerState = updateStats(state);
       return {
         ...initialState,
         ...initSecretCodeAndColorPalette(),
@@ -77,6 +77,9 @@ export default function reducer(state: AppState, action: AppAction): AppState {
     }
     case AppActions.CLOSE_SIDE_PANEL: {
       return { ...state, sidePanelOpen: false };
+    }
+    case AppActions.INIT_GAME: {
+      return { ...state, startTime: Date.now() };
     }
     default:
       return state;

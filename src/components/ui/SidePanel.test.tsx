@@ -21,13 +21,13 @@ describe('SidePanel', () => {
       );
     });
     expect(screen.getByText('Your Statistics')).toBeInTheDocument();
-    expect(screen.getByText('Total Game Played')).toBeInTheDocument();
+    expect(screen.getByText('Total Games Played')).toBeInTheDocument();
     expect(screen.getByText('Wins')).toBeInTheDocument();
     expect(screen.getByText('Losses')).toBeInTheDocument();
     expect(screen.getByText('Current Win Streak')).toBeInTheDocument();
     expect(screen.getByText('Longest Wining Streak')).toBeInTheDocument();
     expect(screen.getByText('Fastest Solve')).toBeInTheDocument();
-    expect(screen.getByText('Average Guesses')).toBeInTheDocument();
+    expect(screen.getByText('Fewest Guesses')).toBeInTheDocument();
   });
 
   it('does not renders statistics when open', async () => {

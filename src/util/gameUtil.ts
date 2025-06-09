@@ -1,5 +1,5 @@
-import type { PlayerStats } from '@context/types';
-import { COLORS, COLORS_PER_ROW, GUESS_STATUS } from './common';
+import type { AppState, PlayerStats } from '@context/types';
+import { ACHIEVEMENTS, COLORS, COLORS_PER_ROW, GUESS_STATUS } from './common';
 import { getItem, setItem } from '@services/storage';
 
 function generateSecretCode() {
@@ -31,9 +31,10 @@ export function getPlayerStateFromStorage(): PlayerStats {
       wins: 0,
       losses: 0,
       fastestSolve: 0,
-      averageGuesses: 0,
+      fewestGuesses: 0,
       currentStreak: 0,
       maxStreak: 0,
+      lastPlayed: 0,
     };
   }
   return JSON.parse(raw) as PlayerStats;
@@ -43,19 +44,30 @@ export function savePlayerStats(stats: PlayerStats) {
   setItem('playerStats', JSON.stringify(stats));
 }
 
-export function updateStats(stats: PlayerStats, guesses: number, won: boolean): PlayerStats {
-  const updated = { ...stats };
+export function updateStats(appSate: AppState): PlayerStats {
+  const { playerState, guessNumber: guesses, isVictory: won, startTime } = appSate;
+  const elapsedTimeInSeconds = Math.floor((Date.now() - startTime) / 1000);
+
+  const updated = { ...playerState };
   updated.totalGames++;
   if (won) {
     updated.wins++;
-    updated.fastestSolve = Math.min(updated.fastestSolve || guesses, guesses);
+    updated.fewestGuesses = Math.min(updated.fewestGuesses || guesses, guesses);
+    updated.fastestSolve =
+      updated.fastestSolve === 0 ? elapsedTimeInSeconds : Math.min(updated.fastestSolve, elapsedTimeInSeconds);
     updated.currentStreak++;
     updated.maxStreak = Math.max(updated.currentStreak, updated.maxStreak);
   } else {
     updated.losses++;
     updated.currentStreak = 0;
   }
-  updated.averageGuesses = Math.round((stats.averageGuesses * stats.totalGames + guesses) / updated.totalGames);
+
   savePlayerStats(updated);
   return updated;
+}
+
+export function getUnlockedAchievements(playerState: PlayerStats) {
+  const unlocked = ACHIEVEMENTS.filter((achievement) => achievement.conditions(playerState));
+  const remaining = ACHIEVEMENTS.filter((achievement) => !achievement.conditions(playerState));
+  return { unlocked, remaining };
 }

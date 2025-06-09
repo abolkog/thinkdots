@@ -1,11 +1,14 @@
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react';
-import XMarkIcon from '@assets/close-x.svg';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useGameContext } from '@hooks/useGameContext';
 import { AppActions } from '@context/reducer';
+import Badge from './Badge';
+import { getUnlockedAchievements } from '@util/gameUtil';
 
 export default function SidePanel() {
   const { state, dispatch } = useGameContext();
   const { sidePanelOpen, playerState } = state;
+  const { unlocked, remaining } = getUnlockedAchievements(playerState);
 
   const handleClose = () => {
     dispatch({ type: AppActions.CLOSE_SIDE_PANEL });
@@ -34,7 +37,7 @@ export default function SidePanel() {
                   >
                     <span className="absolute -inset-2.5" />
                     <span className="sr-only">Close panel</span>
-                    <img src={XMarkIcon} alt="Close" className="size-6" />
+                    <XMarkIcon className="h-6 w-6 text-gray-700 hover:text-white" />
                   </button>
                 </div>
               </TransitionChild>
@@ -42,36 +45,93 @@ export default function SidePanel() {
                 <div className="space-y-6 pb-16">
                   <div>
                     <h3 className="font-medium text-white">Your Statistics</h3>
+
                     <dl className="mt-2 divide-y divide-gray-200 border-t border-b border-gray-200">
                       <div className="flex justify-between py-3 text-sm font-medium">
-                        <dt className="text-white">Total Game Played</dt>
+                        <dt className="text-white">
+                          Total Games Played
+                          <br />
+                          <span className="text-gray-400 text-xs ml-1">(Total number of games you played)</span>
+                        </dt>
                         <dd className="text-blue-400 font-semibold">{playerState.totalGames}</dd>
                       </div>
                       <div className="flex justify-between py-3 text-sm font-medium">
-                        <dt className="text-white">Wins</dt>
+                        <dt className="text-white">
+                          Wins
+                          <br />
+                          <span className="text-gray-400 text-xs ml-1">(Number of times you won)</span>
+                        </dt>
                         <dd className="text-blue-400 font-semibold">{playerState.wins}</dd>
                       </div>
                       <div className="flex justify-between py-3 text-sm font-medium">
-                        <dt className="text-white">Losses</dt>
+                        <dt className="text-white">
+                          Losses
+                          <br />
+                          <span className="text-gray-400 text-xs ml-1">(Number of times you lost)</span>
+                        </dt>
                         <dd className="text-blue-400 font-semibold">{playerState.losses}</dd>
                       </div>
                       <div className="flex justify-between py-3 text-sm font-medium">
-                        <dt className="text-white">Current Win Streak</dt>
+                        <dt className="text-white">
+                          Current Win Streak
+                          <br />
+                          <span className="text-gray-400 text-xs ml-1">(Your current wining streak)</span>
+                        </dt>
                         <dd className="text-blue-400 font-semibold">{playerState.currentStreak}</dd>
                       </div>
                       <div className="flex justify-between py-3 text-sm font-medium">
-                        <dt className="text-white">Longest Wining Streak</dt>
+                        <dt className="text-white">
+                          Longest Wining Streak
+                          <br />
+                          <span className="text-gray-400 text-xs ml-1">(The longest winning streak you ever had)</span>
+                        </dt>
                         <dd className="text-blue-400 font-semibold">{playerState.maxStreak}</dd>
                       </div>
                       <div className="flex justify-between py-3 text-sm font-medium">
-                        <dt className="text-white">Fastest Solve</dt>
+                        <dt className="text-white">
+                          Fastest Solve
+                          <br />
+                          <span className="text-gray-400 text-xs ml-1">
+                            (Fastest time you solved a game - in seconds)
+                          </span>
+                        </dt>
                         <dd className="text-blue-400 font-semibold">{playerState.fastestSolve}</dd>
                       </div>
                       <div className="flex justify-between py-3 text-sm font-medium">
-                        <dt className="text-white">Average Guesses</dt>
-                        <dd className="text-blue-400 font-semibold">{playerState.averageGuesses}</dd>
+                        <dt className="text-white">
+                          Fewest Guesses
+                          <br />
+                          <span className="text-gray-400 text-xs ml-1">(Fewest number of guesses to win a game)</span>
+                        </dt>
+                        <dd className="text-blue-400 font-semibold">{playerState.fewestGuesses}</dd>
                       </div>
                     </dl>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-white">Your Achievements</h3>
+                    <div className="mt-2 grid grid-cols-1 gap-3">
+                      {unlocked.map((unlockedAchievement) => (
+                        <Badge
+                          key={unlockedAchievement.id}
+                          title={unlockedAchievement.name}
+                          description={unlockedAchievement.description}
+                          active
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="font-medium text-white">Available Achievements</h3>
+                    <div className="mt-2 grid grid-cols-1 gap-3">
+                      {remaining.map((remainingAchievement) => (
+                        <Badge
+                          key={remainingAchievement.id}
+                          title={remainingAchievement.name}
+                          description={remainingAchievement.description}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -20,6 +20,7 @@ export type AppState = {
   isEasyMode: boolean;
   sidePanelOpen: boolean;
   playerState: PlayerStats;
+  startTime: number;
 };
 
 export type GameContextType = {
@@ -37,7 +38,15 @@ export type PlayerStats = {
   wins: number;
   losses: number;
   fastestSolve: number;
-  averageGuesses: number;
+  fewestGuesses: number;
   currentStreak: number;
   maxStreak: number;
+  lastPlayed: number;
+};
+
+export type Achievement = {
+  id: string;
+  name: string;
+  description: string;
+  conditions: (state: PlayerStats) => boolean;
 };

@@ -12,6 +12,7 @@ export const initialState: AppState = {
   isVictory: false,
   isEasyMode: true,
   sidePanelOpen: false,
+  startTime: 0,
 };
 
 export const GameContext = createContext<GameContextType>({

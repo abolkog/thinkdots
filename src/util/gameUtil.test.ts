@@ -101,9 +101,10 @@ describe('GameUtil', () => {
         wins: 3,
         losses: 2,
         fastestSolve: 2,
-        averageGuesses: 4,
+        fewestGuesses: 4,
         currentStreak: 1,
         maxStreak: 2,
+        lastPlayed: 0,
       };
       mockedStorageService.getItem.mockReturnValue(JSON.stringify(stored));
       const stats = getPlayerStateFromStorage();
@@ -120,9 +121,10 @@ describe('GameUtil', () => {
         wins: 7,
         losses: 3,
         fastestSolve: 1,
-        averageGuesses: 3,
+        fewestGuesses: 3,
         currentStreak: 2,
         maxStreak: 5,
+        lastPlayed: 0,
       };
       savePlayerStats(stats);
       expect(mockedStorageService.setItem).toHaveBeenCalledWith('playerStats', JSON.stringify(stats));

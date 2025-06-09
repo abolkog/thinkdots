@@ -62,17 +62,40 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: 'mind_reader',
     name: 'Mind Reader',
     description: 'Solve a game in 3 guesses or fewer.',
-    conditions: (state) => state.fewestGuesses <= 3,
+    conditions: (state) => state.fewestGuesses <= 3 && state.totalGames > 0,
   },
   {
-    id: 'daily_dedication',
-    name: 'Daily Dedication',
-    description: 'Play 3 days in a row',
+    id: 'back_to_back',
+    name: 'Back to Back',
+    description: 'Play 2 days in a row',
     conditions: (state) => {
       const today = new Date();
       const lastPlayed = new Date(state.lastPlayed);
       const daysSinceLastPlayed = Math.floor((today.getTime() - lastPlayed.getTime()) / (1000 * 60 * 60 * 24));
-      return daysSinceLastPlayed <= 3 && state.totalGames > 0;
+      return daysSinceLastPlayed === 1 && state.totalGames > 0;
+    },
+  },
+  {
+    id: 'weekend_warrior',
+    name: 'Weekend Warrior',
+    description: 'Play on a Saturday or Sunday',
+    conditions: (state) => {
+      const lastPlayed = new Date(state.lastPlayed);
+      const day = lastPlayed.getDay();
+      return (day === 0 || day === 6) && state.totalGames > 0;
+    },
+  },
+  {
+    id: 'comeback_kid',
+    name: 'Comeback Kid',
+    description: 'Play again after a break of at least 7 days',
+    conditions: (state) => {
+      const today = new Date();
+      const lastPlayed = new Date(state.lastPlayed);
+      const daysSinceLastPlayed = Math.floor(
+        (today.setHours(0, 0, 0, 0) - lastPlayed.setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24)
+      );
+      return daysSinceLastPlayed >= 7 && state.totalGames > 0;
     },
   },
 ];

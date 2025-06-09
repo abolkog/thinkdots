@@ -1,9 +1,10 @@
-import type { PlayerStats } from '@context/types';
+import type { Achievement, PlayerStats } from '@context/types';
 import * as StorageService from '@services/storage';
 import { GUESS_STATUS } from './common';
 import {
   getGuessStatus,
   getPlayerStateFromStorage,
+  getUnlockedAchievements,
   initSecretCodeAndColorPalette,
   savePlayerStats,
   updateStats,
@@ -175,6 +176,123 @@ describe('GameUtil', () => {
         maxStreak: 2,
         lastPlayed: 0,
       });
+    });
+  });
+
+  describe('achievements', () => {
+    beforeEach(jest.clearAllMocks);
+    const basePlayerState = { ...mockState.playerState };
+
+    const mapToString = (achievements: Achievement[]) => achievements.map((a) => a.id);
+
+    it('unlocks first_win when wins >= 1 and totalGames > 0', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, wins: 1, totalGames: 1 });
+      expect(mapToString(unlocked)).toContain('first_win');
+    });
+    it('does not unlock first_win when wins < 1', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, wins: 0, totalGames: 1 });
+      expect(mapToString(unlocked)).not.toContain('first_win');
+    });
+
+    it('unlocks streak_5 when currentStreak >= 5 and < 10', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, currentStreak: 5 });
+      expect(mapToString(unlocked)).toContain('streak_5');
+    });
+    it('does not unlock streak_5 when currentStreak < 5', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, currentStreak: 4 });
+      expect(mapToString(unlocked)).not.toContain('streak_5');
+    });
+
+    it('unlocks streak_10 when currentStreak >= 10', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, currentStreak: 10 });
+      expect(mapToString(unlocked)).toContain('streak_10');
+    });
+    it('does not unlock streak_10 when currentStreak < 10', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, currentStreak: 9 });
+      expect(mapToString(unlocked)).not.toContain('streak_10');
+    });
+
+    it('unlocks master_solver when wins >= 50', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, wins: 50 });
+      expect(mapToString(unlocked)).toContain('master_solver');
+    });
+    it('does not unlock master_solver when wins < 50', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, wins: 49 });
+      expect(mapToString(unlocked)).not.toContain('master_solver');
+    });
+
+    it('unlocks fastest_solver when fastestSolve <= 30 and > 0', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, fastestSolve: 25 });
+      expect(mapToString(unlocked)).toContain('fastest_solver');
+    });
+    it('does not unlock fastest_solver when fastestSolve > 30', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, fastestSolve: 31 });
+      expect(mapToString(unlocked)).not.toContain('fastest_solver');
+    });
+
+    it('unlocks mind_reader when fewestGuesses <= 3 and totalGames > 0', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, fewestGuesses: 3, totalGames: 1 });
+      expect(mapToString(unlocked)).toContain('mind_reader');
+    });
+    it('does not unlock mind_reader when fewestGuesses > 3', () => {
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, fewestGuesses: 4, totalGames: 1 });
+      expect(mapToString(unlocked)).not.toContain('mind_reader');
+    });
+
+    it('unlocks weekend_warrior when lastPlayed is Saturday', () => {
+      // Saturday = 6
+      const saturday = new Date();
+      saturday.setDate(saturday.getDate() - ((saturday.getDay() + 1) % 7)); // Go to last Saturday
+      saturday.setHours(12, 0, 0, 0);
+      const { unlocked } = getUnlockedAchievements({
+        ...basePlayerState,
+        lastPlayed: saturday.getTime(),
+        totalGames: 1,
+      });
+      expect(mapToString(unlocked)).toContain('weekend_warrior');
+    });
+    it('unlocks weekend_warrior when lastPlayed is Sunday', () => {
+      // Sunday = 0
+      const sunday = new Date();
+      sunday.setDate(sunday.getDate() - sunday.getDay());
+      sunday.setHours(12, 0, 0, 0);
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, lastPlayed: sunday.getTime(), totalGames: 1 });
+      expect(mapToString(unlocked)).toContain('weekend_warrior');
+    });
+    it('does not unlock weekend_warrior when lastPlayed is a weekday', () => {
+      // Monday = 1
+      const monday = new Date();
+      monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+      monday.setHours(12, 0, 0, 0);
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, lastPlayed: monday.getTime(), totalGames: 1 });
+      expect(mapToString(unlocked)).not.toContain('weekend_warrior');
+    });
+
+    it('unlocks comeback_kid when lastPlayed is at least 7 days ago', () => {
+      const eightDaysAgo = Date.now() - 8 * 24 * 60 * 60 * 1000;
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, lastPlayed: eightDaysAgo, totalGames: 1 });
+      expect(mapToString(unlocked)).toContain('comeback_kid');
+    });
+    it('does not unlock comeback_kid when lastPlayed is less than 7 days ago', () => {
+      const sixDaysAgo = Date.now() - 6 * 24 * 60 * 60 * 1000;
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, lastPlayed: sixDaysAgo, totalGames: 1 });
+      expect(mapToString(unlocked)).not.toContain('comeback_kid');
+    });
+
+    it('unlocks back_to_back when lastPlayed is exactly 1 day ago', () => {
+      const yesterday = Date.now() - 1 * 24 * 60 * 60 * 1000;
+      const { unlocked } = getUnlockedAchievements({ ...basePlayerState, lastPlayed: yesterday, totalGames: 1 });
+      expect(mapToString(unlocked)).toContain('back_to_back');
+    });
+    it('does not unlock back_to_back when lastPlayed is not exactly 1 day ago', () => {
+      const twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000;
+      const today = Date.now();
+      expect(
+        mapToString(getUnlockedAchievements({ ...basePlayerState, lastPlayed: twoDaysAgo, totalGames: 1 }).unlocked)
+      ).not.toContain('back_to_back');
+      expect(
+        mapToString(getUnlockedAchievements({ ...basePlayerState, lastPlayed: today, totalGames: 1 }).unlocked)
+      ).not.toContain('back_to_back');
     });
   });
 });

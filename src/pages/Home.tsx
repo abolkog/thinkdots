@@ -25,7 +25,7 @@ function Home() {
 
         <h1 className="font-bold mb-5 text-lg">Welcome to ThinkDots</h1>
         <button
-          className="text-gray-500 hover:text-white mb-5 cursor-pointer"
+          className="text-blue-300 hover:text-blue-50 mb-5 cursor-pointer font-semibold text-lg"
           onClick={() => {
             dispatch({ type: AppActions.OPEN_SIDE_PANEL });
           }}

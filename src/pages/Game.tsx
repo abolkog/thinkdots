@@ -3,7 +3,7 @@ import GameBoard from '@components/game/GameBoard';
 import Header from '@components/game/Header';
 
 import StateListener from '@components/game/StateListener';
-import Modal from '@components/ui/Modal';
+
 import { AppActions } from '@context/reducer';
 import { useGameContext } from '@hooks/useGameContext';
 import { useEffect } from 'react';
@@ -24,7 +24,6 @@ function Game() {
       </div>
       <Controls />
       <StateListener />
-      <Modal />
     </section>
   );
 }

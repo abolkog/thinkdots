@@ -14,6 +14,37 @@ export default function SidePanel() {
     dispatch({ type: AppActions.CLOSE_SIDE_PANEL });
   };
 
+  const dismissModal = () => {
+    dispatch({
+      type: AppActions.TOGGLE_MODAL,
+      payload: {
+        isOpen: false,
+      },
+    });
+  };
+
+  const resetProgress = () => {
+    dispatch({ type: AppActions.RESET_PLAYER_STATE });
+    dismissModal();
+  };
+
+  const onResetButtonClick = () => {
+    dispatch({ type: AppActions.CLOSE_SIDE_PANEL });
+    dispatch({
+      type: AppActions.TOGGLE_MODAL,
+      payload: {
+        title: 'Reset Progress',
+        message:
+          'This will reset your game progress, including all statistics and achievements. This action cannot be undone.',
+        yesButtonText: 'Reset',
+        noButtonText: 'Cancel',
+        yesButtonOnClick: resetProgress,
+        noButtonOnClick: dismissModal,
+        isOpen: true,
+      },
+    });
+  };
+
   return (
     <Dialog open={sidePanelOpen} onClose={handleClose} className="relative z-10">
       <DialogBackdrop
@@ -132,6 +163,15 @@ export default function SidePanel() {
                         />
                       ))}
                     </div>
+                  </div>
+                  <div className="flex">
+                    <button
+                      type="button"
+                      className="ml-3 flex-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 cursor-pointer"
+                      onClick={onResetButtonClick}
+                    >
+                      Reset My Progress
+                    </button>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import { COLORS_PER_ROW } from '@util/common';
 import type { AppAction, AppState, ModalProps } from '@context/types';
 import { initialState } from '@context/GameContext';
-import { getGuessStatus, initSecretCodeAndColorPalette, updateStats } from '@util/gameUtil';
+import { getGuessStatus, initSecretCodeAndColorPalette, resetPlayerStats, updateStats } from '@util/gameUtil';
 
 export const AppActions = {
   SET_GUESS: 'SET_GUESS',
@@ -12,6 +12,7 @@ export const AppActions = {
   OPEN_SIDE_PANEL: 'OPEN_SIDE_PANEL',
   CLOSE_SIDE_PANEL: 'CLOSE_SIDE_PANEL',
   INIT_GAME: 'INIT_GAME',
+  RESET_PLAYER_STATE: 'RESET_PLAYER_STATE',
 };
 
 export default function reducer(state: AppState, action: AppAction): AppState {
@@ -80,6 +81,13 @@ export default function reducer(state: AppState, action: AppAction): AppState {
     }
     case AppActions.INIT_GAME: {
       return { ...state, startTime: Date.now() };
+    }
+    case AppActions.RESET_PLAYER_STATE: {
+      const playerState = resetPlayerStats();
+      return {
+        ...state,
+        playerState,
+      };
     }
     default:
       return state;

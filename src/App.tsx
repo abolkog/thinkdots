@@ -3,6 +3,7 @@ import Game from '@pages/Game';
 import Help from '@pages/Help';
 import Home from '@pages/Home';
 import SidePanel from '@components/ui/SidePanel';
+import Modal from '@components/ui/Modal';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/help" element={<Help />} />
       </Routes>
       <SidePanel />
+      <Modal />
     </>
   );
 }

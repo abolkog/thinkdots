@@ -158,12 +158,6 @@ describe('reducer', () => {
     });
   });
 
-  it('returns state for unknown action', () => {
-    const action = { type: 'UNKNOWN_ACTION' } as AppAction;
-    const state = reducer(mockState, action);
-    expect(state).toEqual(mockState);
-  });
-
   describe('INIT_GAME', () => {
     it('set start time', () => {
       const action = { type: AppActions.INIT_GAME };
@@ -171,5 +165,28 @@ describe('reducer', () => {
       expect(state.startTime).toBeDefined();
       expect(state.startTime).toEqual(mockDate.getTime());
     });
+  });
+
+  describe('RESET_PLAYER_STATE', () => {
+    it('resets player state', () => {
+      const action = { type: AppActions.RESET_PLAYER_STATE };
+      const state = reducer(mockState, action);
+      expect(state.playerState).toEqual({
+        totalGames: 0,
+        wins: 0,
+        losses: 0,
+        fastestSolve: 0,
+        fewestGuesses: 0,
+        currentStreak: 0,
+        maxStreak: 0,
+        lastPlayed: 0,
+      });
+    });
+  });
+
+  it('returns state for unknown action', () => {
+    const action = { type: 'UNKNOWN_ACTION' } as AppAction;
+    const state = reducer(mockState, action);
+    expect(state).toEqual(mockState);
   });
 });

@@ -2,6 +2,17 @@ import type { AppState, PlayerStats } from '@context/types';
 import { ACHIEVEMENTS, COLORS, COLORS_PER_ROW, GUESS_STATUS } from './common';
 import { getItem, setItem } from '@services/storage';
 
+const initialPlayerState: PlayerStats = {
+  totalGames: 0,
+  wins: 0,
+  losses: 0,
+  fastestSolve: 0,
+  fewestGuesses: 0,
+  currentStreak: 0,
+  maxStreak: 0,
+  lastPlayed: 0,
+};
+
 function generateSecretCode() {
   const shuffled = [...COLORS].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, COLORS_PER_ROW);
@@ -26,22 +37,18 @@ export function classNames(...classes: string[]) {
 export function getPlayerStateFromStorage(): PlayerStats {
   const raw = getItem('playerStats');
   if (!raw) {
-    return {
-      totalGames: 0,
-      wins: 0,
-      losses: 0,
-      fastestSolve: 0,
-      fewestGuesses: 0,
-      currentStreak: 0,
-      maxStreak: 0,
-      lastPlayed: 0,
-    };
+    return initialPlayerState;
   }
   return JSON.parse(raw) as PlayerStats;
 }
 
 export function savePlayerStats(stats: PlayerStats) {
   setItem('playerStats', JSON.stringify(stats));
+}
+
+export function resetPlayerStats(): PlayerStats {
+  setItem('playerStats', JSON.stringify(initialPlayerState));
+  return initialPlayerState;
 }
 
 export function updateStats(appSate: AppState): PlayerStats {

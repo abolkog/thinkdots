@@ -15,8 +15,34 @@ Guess the secret color sequence using logic and feedback. Can you crack the code
 - Interactive color palette and code-breaking gameplay
 - Feedback system: green for correct color & position, white for correct color wrong position, gray for absent color
 - Multiple difficulty levels
+- **Player statistics:** Track your total games, wins, losses, streaks, fastest solve, and more
+- **Achievements:** Unlock badges for special milestones and challenges
 - Responsive, accessible UI
 - Built with React, Vite, and Tailwind CSS
+
+### Statistics
+
+Track your progress with detailed stats:
+
+- Total games played
+- Wins & losses
+- Current and max win streaks
+- Fastest solve time
+- Fewest guesses
+
+Access your statistics anytime from the side panel.
+
+### Achievements
+
+Unlock special badges for reaching milestones, such as:
+
+- First win
+- Win streaks
+- Fastest solve
+- Playing on weekends or after a break
+- And more!
+
+Achievements are displayed as colorful badges in your profile panel.
 
 ## Screenshot
 

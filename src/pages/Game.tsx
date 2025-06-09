@@ -4,8 +4,17 @@ import Header from '@components/game/Header';
 
 import StateListener from '@components/game/StateListener';
 import Modal from '@components/ui/Modal';
+import { AppActions } from '@context/reducer';
+import { useGameContext } from '@hooks/useGameContext';
+import { useEffect } from 'react';
 
 function Game() {
+  const { dispatch } = useGameContext();
+
+  useEffect(() => {
+    dispatch({ type: AppActions.INIT_GAME });
+  }, [dispatch]);
+
   return (
     <section className="w-full sm:w-[60%] lg:w-[90%] flex flex-col justify-center items-center">
       <Header />

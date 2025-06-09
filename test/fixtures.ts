@@ -12,13 +12,15 @@ export const mockState: AppState = {
   isVictory: false,
   isEasyMode: true,
   sidePanelOpen: false,
+  startTime: 0,
   playerState: {
     totalGames: 0,
     wins: 0,
     losses: 0,
     fastestSolve: 0,
-    averageGuesses: 0,
+    fewestGuesses: 0,
     currentStreak: 0,
     maxStreak: 0,
+    lastPlayed: 0,
   },
 };

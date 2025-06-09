@@ -3,6 +3,12 @@ import type { AppAction } from '@context/types';
 import { mockState } from '@test/fixtures';
 
 describe('reducer', () => {
+  const mockDate = new Date('2023-10-01T00:00:00Z');
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useFakeTimers();
+    jest.setSystemTime(mockDate);
+  });
   describe('SET_GUESS', () => {
     it('updates guesses and isValidGuess', () => {
       const action = {
@@ -156,5 +162,14 @@ describe('reducer', () => {
     const action = { type: 'UNKNOWN_ACTION' } as AppAction;
     const state = reducer(mockState, action);
     expect(state).toEqual(mockState);
+  });
+
+  describe('INIT_GAME', () => {
+    it('set start time', () => {
+      const action = { type: AppActions.INIT_GAME };
+      const state = reducer(mockState, action);
+      expect(state.startTime).toBeDefined();
+      expect(state.startTime).toEqual(mockDate.getTime());
+    });
   });
 });

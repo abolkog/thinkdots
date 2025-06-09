@@ -1,6 +1,6 @@
 # ThinkDots
 
-[![Build Status](https://github.com/abolkog/thinkdots/actions/workflows/pull_request.yml/badge.svg)](https://github.com/abolkog/thinkdots/actions)
+[![Build Status](https://github.com/abolkog/thinkdots/actions/workflows/release.yml/badge.svg)](https://github.com/abolkog/thinkdots/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/abolkog/thinkdots/pulls)
 

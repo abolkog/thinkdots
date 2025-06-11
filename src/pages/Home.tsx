@@ -1,8 +1,8 @@
 import { useNavigate, NavLink } from 'react-router';
-
 import DifficultySelector from '@components/home/DifficultySelector';
 import Button from '@components/ui/Button';
 import Logo from '@components/ui/Logo';
+import MuteToggle from '@components/home/MuteToggle';
 import { useSound } from '@hooks/useSound';
 import { useGameContext } from '@hooks/useGameContext';
 import { AppActions } from '@context/reducer';
@@ -34,6 +34,7 @@ function Home() {
         </button>
 
         <DifficultySelector />
+        <MuteToggle />
 
         <h3 className="text-gray-500">
           <NavLink to="/help">New Player? Learn How To play</NavLink>

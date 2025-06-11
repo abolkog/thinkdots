@@ -7,16 +7,19 @@ global.ResizeObserver = class {
   disconnect() {}
 };
 
-jest.mock('@hooks/useSound', () => ({
-  useSound: () => ({
-    playBg: jest.fn(),
-    stopBg: jest.fn(),
-    playSetColor: jest.fn(),
-    playGameOver: jest.fn(),
-    playWin: jest.fn(),
-  }),
-}));
+const useSoundMock = jest.fn().mockReturnValue({
+  playBg: jest.fn(),
+  stopBg: jest.fn(),
+  playSetColor: jest.fn(),
+  playGameOver: jest.fn(),
+  playWin: jest.fn(),
+  toggleBgMute: jest.fn(),
+  isMuted: jest.fn(),
+});
 
+jest.mock('@hooks/useSound', () => ({
+  useSound: useSoundMock,
+}));
 jest.mock('@util/envHelper', () => ({
   BASE_URL: '/',
 }));

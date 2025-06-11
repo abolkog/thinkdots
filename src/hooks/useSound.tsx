@@ -4,7 +4,7 @@ import { BASE_URL } from '@util/envHelper';
 const base = BASE_URL;
 
 const sounds = {
-  bg: new Howl({ src: [`${base}sounds/bg.mp3`], loop: true, volume: 0.3 }),
+  bg: new Howl({ src: [`${base}sounds/bg.mp3`], loop: true, volume: 0.3, mute: false }),
   setColor: new Howl({
     src: [`${base}sounds/pop.mp3`],
     loop: false,
@@ -25,5 +25,12 @@ export function useSound() {
     playSetColor: () => sounds.setColor.play(),
     playGameOver: () => sounds.gameOver.play(),
     playWin: () => sounds.win.play(),
+    toggleBgMute: () => {
+      sounds.bg.mute(!sounds.bg.mute());
+    },
+    isMuted: () => {
+      const value = sounds.bg.mute();
+      return typeof value === 'boolean' ? value : false;
+    },
   };
 }

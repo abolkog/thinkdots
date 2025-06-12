@@ -4,19 +4,19 @@ import { GameContext } from '@context/GameContext';
 import { mockState } from '@test/fixtures';
 import { COLORS } from '@util/common';
 
-const mockDispatch = jest.fn();
+const onSetColorMock = jest.fn();
 
 function renderComponent({ position = 0, disabled = false } = {}) {
   return render(
-    <GameContext.Provider value={{ state: mockState, dispatch: mockDispatch }}>
-      <Dot position={position} disabled={disabled} />
+    <GameContext.Provider value={{ state: mockState, dispatch: jest.fn() }}>
+      <Dot position={position} disabled={disabled} onSetColor={onSetColorMock} />
     </GameContext.Provider>
   );
 }
 
 describe('Dot', () => {
   beforeEach(() => {
-    mockDispatch.mockClear();
+    onSetColorMock.mockClear();
   });
 
   it('renders a button', () => {
@@ -30,7 +30,7 @@ describe('Dot', () => {
     expect(button).toBeDisabled();
   });
 
-  it('shows color panel when clicked and dispatches on color select', () => {
+  it('shows color panel when clicked and invoke onSetColorMock', () => {
     renderComponent();
 
     const mainButton = screen.getByRole('button');
@@ -43,12 +43,6 @@ describe('Dot', () => {
 
     fireEvent.click(colorButton);
 
-    expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'SET_GUESS',
-      payload: {
-        position: 0,
-        color: COLORS[0],
-      },
-    });
+    expect(onSetColorMock).toHaveBeenCalledWith(COLORS[0], 0);
   });
 });

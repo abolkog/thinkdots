@@ -3,17 +3,17 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 
 import { classNames } from '@util/gameUtil';
 import { useGameContext } from '@hooks/useGameContext';
-import { AppActions } from '@context/reducer';
 import { colorClasses, COLORS } from '@util/common';
 import { useSound } from '@hooks/useSound';
 
 type DotProps = {
   position: number;
   disabled: boolean;
+  onSetColor: (color: string, position: number) => void;
 };
 
-export default function Dot({ position, disabled }: DotProps) {
-  const { dispatch, state } = useGameContext();
+export default function Dot({ position, disabled, onSetColor }: DotProps) {
+  const { state } = useGameContext();
   const { playSetColor } = useSound();
   const { secret } = state;
   const [color, setColor] = useState<string>('');
@@ -25,34 +25,21 @@ export default function Dot({ position, disabled }: DotProps) {
   const handleClick = (value: string) => {
     playSetColor();
     setColor(value);
-    dispatch({
-      type: AppActions.SET_GUESS,
-      payload: { position, color: value },
-    });
+    onSetColor(value, position);
   };
 
   return (
     <Popover className="relative">
-      <PopoverButton
-        disabled={disabled}
-        className={classNames(
-          disabled ? 'cursor-not-allowed' : 'cursor-pointer'
-        )}
-      >
+      <PopoverButton disabled={disabled} className={classNames(disabled ? 'cursor-not-allowed' : 'cursor-pointer')}>
         <div
           className={classNames(
             'w-10 h-10 rounded-full border-2 transition-transform',
             colorClasses[color],
-            disabled
-              ? 'border-gray-400 '
-              : 'border-white hover:ring-2 hover:scale-105'
+            disabled ? 'border-gray-400 ' : 'border-white hover:ring-2 hover:scale-105'
           )}
         />
       </PopoverButton>
-      <PopoverPanel
-        anchor="bottom"
-        className=" bg-gray-300 rounded-lg p-2 mt-1 grid grid-cols-3 gap-1"
-      >
+      <PopoverPanel anchor="bottom" className=" bg-gray-300 rounded-lg p-2 mt-1 grid grid-cols-3 gap-1">
         {COLORS.map((colorName) => (
           <button
             key={colorName}

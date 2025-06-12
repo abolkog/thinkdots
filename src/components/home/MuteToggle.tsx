@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Field, Label, Switch } from '@headlessui/react';
 import { useSound } from '@hooks/useSound';
 
-const MuteToggle: React.FC = () => {
+export default function MuteToggle() {
   const { toggleBgMute, isMuted } = useSound();
   const [checked, setChecked] = useState(isMuted());
 
@@ -27,6 +27,4 @@ const MuteToggle: React.FC = () => {
       </Label>
     </Field>
   );
-};
-
-export default MuteToggle;
+}

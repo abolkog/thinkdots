@@ -62,7 +62,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: 'mind_reader',
     name: 'Mind Reader',
     description: 'Solve a game in 3 guesses or fewer.',
-    conditions: (state) => state.fewestGuesses <= 3 && state.totalGames > 0,
+    conditions: (state) => state.fewestGuesses > 0 && state.fewestGuesses <= 3 && state.totalGames > 0,
   },
   {
     id: 'back_to_back',
@@ -92,9 +92,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     conditions: (state) => {
       const today = new Date();
       const lastPlayed = new Date(state.lastPlayed);
-      const daysSinceLastPlayed = Math.floor(
-        (today.setHours(0, 0, 0, 0) - lastPlayed.setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24)
-      );
+      const daysSinceLastPlayed = Math.floor((today.getTime() - lastPlayed.getTime()) / (1000 * 60 * 60 * 24));
       return daysSinceLastPlayed >= 7 && state.totalGames > 0;
     },
   },

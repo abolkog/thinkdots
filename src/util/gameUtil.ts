@@ -10,7 +10,7 @@ const initialPlayerState: PlayerStats = {
   fewestGuesses: 0,
   currentStreak: 0,
   maxStreak: 0,
-  lastPlayed: 0,
+  lastPlayed: Date.now(),
 };
 
 function generateSecretCode() {

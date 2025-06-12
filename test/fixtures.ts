@@ -23,4 +23,5 @@ export const mockState: AppState = {
     maxStreak: 0,
     lastPlayed: 0,
   },
+  isCustomChallenge: false,
 };

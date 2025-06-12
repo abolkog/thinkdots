@@ -13,6 +13,7 @@ export const AppActions = {
   CLOSE_SIDE_PANEL: 'CLOSE_SIDE_PANEL',
   INIT_GAME: 'INIT_GAME',
   RESET_PLAYER_STATE: 'RESET_PLAYER_STATE',
+  SET_CUSTOM_CHALLENGE: 'SET_CUSTOM_CHALLENGE',
 };
 
 export default function reducer(state: AppState, action: AppAction): AppState {
@@ -24,7 +25,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       };
       const newGuesses = [...state.guesses];
       newGuesses[position] = color;
-      const isValidGuess = newGuesses.every((guess) => guess) && new Set(newGuesses).size === COLORS_PER_ROW;
+      const isValidGuess = newGuesses.every(Boolean) && new Set(newGuesses).size === COLORS_PER_ROW;
       return {
         ...state,
         guesses: newGuesses,
@@ -52,7 +53,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       };
     }
     case AppActions.RESET_GAME: {
-      const updatedPlayerState = updateStats(state);
+      const updatedPlayerState = state.isCustomChallenge ? state.playerState : updateStats(state);
       return {
         ...initialState,
         ...initSecretCodeAndColorPalette(),
@@ -82,6 +83,22 @@ export default function reducer(state: AppState, action: AppAction): AppState {
     }
     case AppActions.INIT_GAME: {
       return { ...state, startTime: Date.now() };
+    }
+    case AppActions.SET_CUSTOM_CHALLENGE: {
+      const { secret, challengeMessage, challengerName } = action.payload as {
+        secret: string[];
+        challengerName?: string;
+        challengeMessage?: string;
+      };
+      const updatedState = {
+        ...initialState,
+        secret,
+        isEasyMode: false,
+        isCustomChallenge: true,
+        challengeMessage: challengeMessage ?? '',
+        challengerName: challengerName ?? '',
+      };
+      return updatedState;
     }
     case AppActions.RESET_PLAYER_STATE: {
       const playerState = resetPlayerStats();

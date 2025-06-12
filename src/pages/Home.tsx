@@ -3,6 +3,7 @@ import DifficultySelector from '@components/home/DifficultySelector';
 import Button from '@components/ui/Button';
 import Logo from '@components/ui/Logo';
 import MuteToggle from '@components/home/MuteToggle';
+import Divider from '@components/ui/Divider';
 import { useSound } from '@hooks/useSound';
 import { useGameContext } from '@hooks/useGameContext';
 import { AppActions } from '@context/reducer';
@@ -44,8 +45,18 @@ function Home() {
       <article className="flex flex-col gap-3 w-[90%]">
         <div className="w-full rounded-2xl pb-2">
           <Button onClick={handleNewGame} cssClass="rounded-2xl w-full font-bold text-lg">
-            new game
+            play new game
           </Button>
+        </div>
+        <Divider label="OR" />
+
+        <div className="w-full rounded-2xl pb-2 flex items-center justify-center">
+          <NavLink
+            to="/challenge/create"
+            className="uppercase text-black-400 py-3 px-3 bg-yellow-400 transition-all duration-200 ease-in-out rounded-2xl  font-bold text-lg"
+          >
+            challenge a friend
+          </NavLink>
         </div>
       </article>
     </>

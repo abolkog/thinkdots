@@ -8,6 +8,7 @@ import {
   initSecretCodeAndColorPalette,
   savePlayerStats,
   updateStats,
+  validateCode,
 } from './gameUtil';
 import { mockState } from '@test/fixtures';
 
@@ -295,6 +296,39 @@ describe('GameUtil', () => {
       expect(
         mapToString(getUnlockedAchievements({ ...basePlayerState, lastPlayed: today, totalGames: 1 }).unlocked)
       ).not.toContain('back_to_back');
+    });
+  });
+
+  describe('validateCode', () => {
+    beforeEach(jest.clearAllMocks);
+    it('should return valid code with correct colors', () => {
+      const { isValid, code } = validateCode('red, indigo, green, yellow');
+      expect(isValid).toBe(true);
+      expect(code).toEqual(['red', 'indigo', 'green', 'yellow']);
+    });
+
+    it('should return invalid for duplicate colors', () => {
+      const { isValid, code } = validateCode('red, blue, red, yellow');
+      expect(isValid).toBe(false);
+      expect(code).toEqual([]);
+    });
+
+    it('should return invalid for incorrect colors', () => {
+      const { isValid, code } = validateCode('orange, blue, purple, yellow');
+      expect(isValid).toBe(false);
+      expect(code).toEqual([]);
+    });
+
+    it('should return invalid for less than required colors', () => {
+      const { isValid, code } = validateCode('red, blue');
+      expect(isValid).toBe(false);
+      expect(code).toEqual([]);
+    });
+
+    it('should return invalid for more than required colors', () => {
+      const { isValid, code } = validateCode('red, blue, green, yellow, orange');
+      expect(isValid).toBe(false);
+      expect(code).toEqual([]);
     });
   });
 });

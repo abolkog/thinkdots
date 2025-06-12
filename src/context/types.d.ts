@@ -21,6 +21,9 @@ export type AppState = {
   sidePanelOpen: boolean;
   playerState: PlayerStats;
   startTime: number;
+  isCustomChallenge: boolean;
+  challengerName?: string;
+  challengeMessage?: string;
 };
 
 export type GameContextType = {

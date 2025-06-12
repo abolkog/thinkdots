@@ -78,3 +78,15 @@ export function getUnlockedAchievements(playerState: PlayerStats) {
   const remaining = ACHIEVEMENTS.filter((achievement) => !achievement.conditions(playerState));
   return { unlocked, remaining };
 }
+
+export function validateCode(value: string): { isValid: boolean; code: string[] } {
+  const code = value.split(',').map((color) => color.trim());
+
+  const uniqueColors = new Set(code);
+
+  if (uniqueColors.size !== COLORS_PER_ROW) return { isValid: false, code: [] };
+
+  const isValid = code.every((color) => COLORS.includes(color));
+
+  return { isValid, code: isValid ? code : [] };
+}

@@ -13,6 +13,7 @@ export const initialState: AppState = {
   isEasyMode: true,
   sidePanelOpen: false,
   startTime: 0,
+  isCustomChallenge: false,
 };
 
 export const GameContext = createContext<GameContextType>({

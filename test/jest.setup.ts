@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { TextEncoder } from 'util';
 
 // Mock ResizeObserver for headlessui/react Popover
 global.ResizeObserver = class {
@@ -6,6 +7,8 @@ global.ResizeObserver = class {
   unobserve() {}
   disconnect() {}
 };
+
+global.TextEncoder = TextEncoder;
 
 const useSoundMock = jest.fn().mockReturnValue({
   playBg: jest.fn(),
@@ -20,6 +23,7 @@ const useSoundMock = jest.fn().mockReturnValue({
 jest.mock('@hooks/useSound', () => ({
   useSound: useSoundMock,
 }));
+
 jest.mock('@util/envHelper', () => ({
   BASE_URL: '/',
 }));

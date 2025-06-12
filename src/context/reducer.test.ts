@@ -122,6 +122,12 @@ describe('reducer', () => {
         })
       );
     });
+
+    it('does not reset playerState if isCustomChallenge is true', () => {
+      const action = { type: AppActions.RESET_GAME };
+      const state = reducer({ ...mockState, isCustomChallenge: true }, action);
+      expect(state.playerState).toEqual(mockState.playerState);
+    });
   });
 
   describe('TOGGLE_MODAL', () => {
@@ -184,6 +190,42 @@ describe('reducer', () => {
         maxStreak: 0,
         lastPlayed: expect.any(Number),
       });
+    });
+  });
+
+  describe('SET_CUSTOM_CHALLENGE', () => {
+    const baseAction = {
+      type: AppActions.SET_CUSTOM_CHALLENGE,
+      payload: {
+        secret: ['red', 'blue', 'green', 'yellow'],
+        challengerName: 'Khalid',
+        challengeMessage: 'Good luck!',
+      },
+    };
+    it('sets custom challenge state', () => {
+      const state = reducer(mockState, baseAction);
+      expect(state.secret).toEqual(['red', 'blue', 'green', 'yellow']);
+      expect(state.isCustomChallenge).toEqual(true);
+      expect(state.challengerName).toEqual('Khalid');
+      expect(state.challengeMessage).toEqual('Good luck!');
+    });
+
+    it('handles missing challengerName and challengeMessage', () => {
+      const payload = {
+        ...baseAction.payload,
+        challengerName: undefined,
+        challengeMessage: undefined,
+      };
+
+      const action = { type: AppActions.SET_CUSTOM_CHALLENGE, payload };
+      const state = reducer(mockState, action);
+      expect(state.challengerName).toEqual('');
+      expect(state.challengeMessage).toEqual('');
+    });
+
+    it('set isEasyMode to false', () => {
+      const state = reducer({ ...mockState, isEasyMode: true }, baseAction);
+      expect(state.isEasyMode).toEqual(false);
     });
   });
 

@@ -6,13 +6,14 @@ import { useGameContext } from '@hooks/useGameContext';
 import Logo from '@components/ui/Logo';
 import { AppActions } from '@context/reducer';
 import { NUMBER_OF_ATTEMPTS } from '@util/common';
+import Counter from '@components/ui/Counter';
 
 const SectionItem = ({ children }: { children: React.ReactNode }) => (
   <div className="flex items-center justify-center h-12">{children}</div>
 );
 export default function Header() {
   const { state, dispatch } = useGameContext();
-  const { playerState } = state;
+  const { playerState, isCustomChallenge, challengerName } = state;
 
   const navigate = useNavigate();
 
@@ -75,6 +76,11 @@ export default function Header() {
         <SectionItem>
           <Logo />
         </SectionItem>
+        {isCustomChallenge && challengerName && (
+          <SectionItem>
+            <span className="text-yellow-500 font-semibold text-lg">Challenge from {challengerName}</span>
+          </SectionItem>
+        )}
       </section>
       <section className="flex justify-between items-center mb-10 w-[95%] md:w-full">
         <SectionItem>
@@ -84,13 +90,18 @@ export default function Header() {
         </SectionItem>
 
         <SectionItem>
-          <button
-            onClick={() => dispatch({ type: AppActions.OPEN_SIDE_PANEL })}
-            className="inline-flex items-center rounded-md bg-gray-400/10 px-2 py-1 text-s font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20 cursor-pointer"
-          >
-            Win Streak: {playerState.currentStreak}
-          </button>
+          {isCustomChallenge ? (
+            <Counter />
+          ) : (
+            <button
+              onClick={() => dispatch({ type: AppActions.OPEN_SIDE_PANEL })}
+              className="inline-flex items-center rounded-md bg-gray-400/10 px-2 py-1 text-s font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20 cursor-pointer"
+            >
+              Win Streak: {playerState.currentStreak}
+            </button>
+          )}
         </SectionItem>
+
         <SectionItem>
           <div className="rounded-md bg-gray-500 pb-1">
             <Button onClick={handleResetClick} cssClass="bg-gray-400 rounded-md pb-2">

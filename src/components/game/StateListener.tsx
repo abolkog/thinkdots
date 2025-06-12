@@ -9,7 +9,7 @@ export default function StateListener() {
   const navigate = useNavigate();
   const { stopBg, playBg, playGameOver, playWin } = useSound();
   const { state, dispatch } = useGameContext();
-  const { isVictory, guessNumber } = state;
+  const { isVictory, guessNumber, isCustomChallenge, challengeMessage, challengerName } = state;
   const triggeredRef = useRef(false);
 
   const resetGame = useCallback(() => {
@@ -36,6 +36,17 @@ export default function StateListener() {
     }
   }, [isVictory, playGameOver, playWin, stopBg]);
 
+  const formatVictoryMessage = useCallback(() => {
+    if (!isCustomChallenge) return `You guessed the secret code in ${guessNumber} attempts!`;
+
+    const name = challengerName ? `by ${challengerName}` : '';
+    const message = challengeMessage ? ` Your friend message: "${challengeMessage}"` : '';
+
+    const victoryMessage = `You solved the challenge ${name} in ${guessNumber} attempts! ${message}`;
+
+    return victoryMessage;
+  }, [isCustomChallenge, guessNumber, challengerName, challengeMessage]);
+
   useEffect(() => {
     if ((isVictory || guessNumber > NUMBER_OF_ATTEMPTS) && !triggeredRef.current) {
       manageSound();
@@ -44,9 +55,7 @@ export default function StateListener() {
         type: AppActions.TOGGLE_MODAL,
         payload: {
           title: isVictory ? 'Congratulations!' : 'Game Over',
-          message: isVictory
-            ? `You guessed the secret code in ${guessNumber} attempts!`
-            : 'You have used all your guesses. Better luck next time!',
+          message: isVictory ? formatVictoryMessage() : 'You have used all your guesses. Better luck next time!',
           yesButtonText: 'Play Again',
           noButtonText: 'Exit',
           yesButtonOnClick: resetGame,
@@ -59,7 +68,7 @@ export default function StateListener() {
     if (!isVictory && guessNumber === 1) {
       triggeredRef.current = false;
     }
-  }, [dispatch, exitGame, guessNumber, isVictory, resetGame, manageSound]);
+  }, [dispatch, exitGame, guessNumber, isVictory, resetGame, manageSound, formatVictoryMessage]);
 
   return null;
 }

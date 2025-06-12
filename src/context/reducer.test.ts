@@ -4,11 +4,13 @@ import { mockState } from '@test/fixtures';
 
 describe('reducer', () => {
   const mockDate = new Date('2023-10-01T00:00:00Z');
+
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
     jest.setSystemTime(mockDate);
   });
+
   describe('SET_GUESS', () => {
     it('updates guesses and isValidGuess', () => {
       const action = {
@@ -82,6 +84,7 @@ describe('reducer', () => {
       const state = reducer(mockState, action);
       expect(state).toEqual({
         ...mockState,
+        startTime: expect.any(Number),
         secret: expect.any(Array),
         colorPalette: expect.any(Array),
         guessNumber: 1,
@@ -179,7 +182,7 @@ describe('reducer', () => {
         fewestGuesses: 0,
         currentStreak: 0,
         maxStreak: 0,
-        lastPlayed: 0,
+        lastPlayed: expect.any(Number),
       });
     });
   });

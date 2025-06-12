@@ -58,6 +58,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
         ...initSecretCodeAndColorPalette(),
         isEasyMode: state.isEasyMode,
         playerState: updatedPlayerState,
+        startTime: Date.now(),
       };
     }
     case AppActions.TOGGLE_MODAL: {

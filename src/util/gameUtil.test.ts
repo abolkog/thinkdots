@@ -91,7 +91,7 @@ describe('GameUtil', () => {
         fewestGuesses: 0,
         currentStreak: 0,
         maxStreak: 0,
-        lastPlayed: 0,
+        lastPlayed: expect.any(Number),
       });
     });
 

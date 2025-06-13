@@ -8,6 +8,11 @@ import Modal from './Modal';
 
 const mockDispatch = jest.fn();
 
+jest.mock('@components/ui/Badge', () => ({
+  __esModule: true,
+  default: () => <div>achievement badge</div>,
+}));
+
 describe('SidePanel', () => {
   beforeEach(() => {
     mockDispatch.mockClear();
@@ -114,5 +119,32 @@ describe('SidePanel', () => {
       type: AppActions.TOGGLE_MODAL,
       payload: { isOpen: false },
     });
+  });
+
+  it('render achievements badges', async () => {
+    const { playerState } = mockState;
+    await act(async () => {
+      render(
+        <GameContext.Provider
+          value={{
+            state: {
+              ...mockState,
+              sidePanelOpen: true,
+              playerState: {
+                ...playerState,
+                totalGames: 10,
+                wins: 5,
+              },
+            },
+            dispatch: mockDispatch,
+          }}
+        >
+          <SidePanel />
+        </GameContext.Provider>
+      );
+    });
+
+    const badges = screen.getAllByText(/achievement badge/i);
+    expect(badges.length).toBeGreaterThan(0);
   });
 });

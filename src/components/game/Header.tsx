@@ -26,44 +26,31 @@ export default function Header() {
     });
   };
 
-  const resetGame = () => {
+  const handleConfirmationButton = (isExit: boolean) => {
     dispatch({
       type: AppActions.RESET_GAME,
       payload: {
         isOpen: false,
       },
     });
+
+    if (isExit) navigate('/');
   };
 
-  const exitGame = () => {
-    resetGame();
-    navigate('/');
-  };
+  const handleButtonClick = (isExit = false) => {
+    const title = isExit ? 'Exit Game' : 'Reset Game';
+    const message = isExit
+      ? 'Are you sure you want to exit the game? All progress will be lost.'
+      : 'Are you sure you want to reset the game?';
 
-  const handleResetClick = () => {
     dispatch({
       type: AppActions.TOGGLE_MODAL,
       payload: {
-        title: 'Reset Game',
-        message: 'Are you sure you want to reset the game?',
+        title,
+        message,
         yesButtonText: 'Yes',
         noButtonText: 'No',
-        yesButtonOnClick: () => resetGame(),
-        noButtonOnClick: () => dismissModal(),
-        isOpen: true,
-      },
-    });
-  };
-
-  const handleExitClick = () => {
-    dispatch({
-      type: AppActions.TOGGLE_MODAL,
-      payload: {
-        title: 'Exit Game',
-        message: 'Are you sure you want to reset the game? All progress will be lost.',
-        yesButtonText: 'Yes',
-        noButtonText: 'No',
-        yesButtonOnClick: () => exitGame(),
+        yesButtonOnClick: () => handleConfirmationButton(isExit),
         noButtonOnClick: () => dismissModal(),
         isOpen: true,
       },
@@ -104,12 +91,12 @@ export default function Header() {
 
         <SectionItem>
           <div className="rounded-md bg-gray-500 pb-1">
-            <Button onClick={handleResetClick} cssClass="bg-gray-400 rounded-md pb-2">
+            <Button onClick={() => handleButtonClick()} cssClass="bg-gray-400 rounded-md pb-2">
               <ArrowUturnLeftIcon className="w-4" />
             </Button>
           </div>
           <div className="rounded-md bg-gray-500 pb-1 ml-5">
-            <Button onClick={handleExitClick} cssClass="bg-gray-400 rounded-md pb-2">
+            <Button onClick={() => handleButtonClick(true)} cssClass="bg-gray-400 rounded-md pb-2">
               <XMarkIcon className="w-4" />
             </Button>
           </div>

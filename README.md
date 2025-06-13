@@ -17,36 +17,25 @@ Guess the secret color sequence using logic and feedback. Can you crack the code
 - Multiple difficulty levels
 - **Player statistics:** Track your total games, wins, losses, streaks, fastest solve, and more
 - **Achievements:** Unlock badges for special milestones and challenges
+- **Multiplayer Challenge:** Set your own secret code and invite a friend to try and break it.
 - Responsive, accessible UI
-- Built with React, Vite, and Tailwind CSS
 
-### Statistics
+## Tech Stack
 
-Track your progress with detailed stats:
+- React
+- Vite
+- Tailwind CSS
+- TypeScript
+- React Router
+- Howler.js (for sound)
+- Jest & React Testing Library (for tests)
+- GitHub Actions (CI/CD)
 
-- Total games played
-- Wins & losses
-- Current and max win streaks
-- Fastest solve time
-- Fewest guesses
+## Screenshots
 
-Access your statistics anytime from the side panel.
-
-### Achievements
-
-Unlock special badges for reaching milestones, such as:
-
-- First win
-- Win streaks
-- Fastest solve
-- Playing on weekends or after a break
-- And more!
-
-Achievements are displayed as colorful badges in your profile panel.
-
-## Screenshot
-
-![think dots](./public/think_dots.jpg)
+![](./public/screenshots/main.png)
+![](./public/screenshots/game_play.jpg)
+![](./public/screenshots/challenge.png)
 
 ## How to Play
 

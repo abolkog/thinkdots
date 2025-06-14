@@ -68,6 +68,7 @@ export function updateStats(appSate: AppState): PlayerStats {
     updated.losses++;
     updated.currentStreak = 0;
   }
+  updated.lastPlayed = Date.now();
 
   savePlayerStats(updated);
   return updated;

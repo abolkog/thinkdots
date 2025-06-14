@@ -153,7 +153,7 @@ describe('GameUtil', () => {
         fewestGuesses: 4,
         currentStreak: 2,
         maxStreak: 2,
-        lastPlayed: 0,
+        lastPlayed: expect.any(Number),
       });
     });
 
@@ -177,7 +177,7 @@ describe('GameUtil', () => {
         fewestGuesses: 0,
         currentStreak: 0,
         maxStreak: 2,
-        lastPlayed: 0,
+        lastPlayed: expect.any(Number),
       });
     });
   });

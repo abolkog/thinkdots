@@ -4,11 +4,14 @@ import { AppActions } from '@context/reducer';
 import { useGameContext } from '@hooks/useGameContext';
 import { NUMBER_OF_ATTEMPTS } from '@util/common';
 import { useSound } from '@hooks/useSound';
+import { useTimer } from '@hooks/userTimer';
 
 export default function StateListener() {
   const navigate = useNavigate();
   const { stopBg, playBg, playGameOver, playWin } = useSound();
   const { state, dispatch } = useGameContext();
+  const { elapsed, stop } = useTimer();
+
   const { isVictory, guessNumber, isCustomChallenge, challengeMessage, challengerName } = state;
   const triggeredRef = useRef(false);
 
@@ -42,14 +45,18 @@ export default function StateListener() {
     const name = challengerName ? `by ${challengerName}` : '';
     const message = challengeMessage ? ` Your friend message: "${challengeMessage}"` : '';
 
-    const victoryMessage = `You solved the challenge ${name} in ${guessNumber} attempts! ${message}`;
+    const timeInSeconds = (elapsed / 1000).toFixed(2);
+    const effort = `in ${guessNumber} attempts! It took you: ${timeInSeconds} seconds to break the code.`;
+
+    const victoryMessage = `You solved the challenge ${name} ${effort} ${message}`;
 
     return victoryMessage;
-  }, [isCustomChallenge, guessNumber, challengerName, challengeMessage]);
+  }, [isCustomChallenge, guessNumber, challengerName, challengeMessage, elapsed]);
 
   useEffect(() => {
     if ((isVictory || guessNumber > NUMBER_OF_ATTEMPTS) && !triggeredRef.current) {
       manageSound();
+      stop();
       triggeredRef.current = true;
       dispatch({
         type: AppActions.TOGGLE_MODAL,
@@ -68,7 +75,7 @@ export default function StateListener() {
     if (!isVictory && guessNumber === 1) {
       triggeredRef.current = false;
     }
-  }, [dispatch, exitGame, guessNumber, isVictory, resetGame, manageSound, formatVictoryMessage]);
+  }, [dispatch, exitGame, guessNumber, isVictory, resetGame, manageSound, formatVictoryMessage, stop]);
 
   return null;
 }

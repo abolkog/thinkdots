@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router';
 import App from './App';
 import GameProvider from '@context/GameProvider';
+import { TimerProvider } from '@context/timer/TimerProvider';
 
 import '@styles/index.css';
 
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')!).render(
       <section className="w-full sm:w-[60%] lg:w-[60%] flex flex-col items-center justify-center gap-10 min-h-screen">
         <HashRouter>
           <GameProvider>
-            <App />
+            <TimerProvider>
+              <App />
+            </TimerProvider>
           </GameProvider>
         </HashRouter>
       </section>

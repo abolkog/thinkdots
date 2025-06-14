@@ -1,22 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useTimer } from '@hooks/userTimer';
+import { useEffect } from 'react';
 
 export default function Counter() {
-  const [elapsed, setElapsed] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const startTimeRef = useRef<number>(Date.now());
+  const { elapsed, stop, start } = useTimer();
 
   useEffect(() => {
-    startTimeRef.current = Date.now();
-    intervalRef.current = setInterval(() => {
-      setElapsed(Date.now() - startTimeRef.current);
-    }, 50);
+    start();
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      stop();
     };
-  }, []);
+  }, [start, stop]);
 
   const formatTime = (ms: number) => {
     const totalSeconds = Math.floor(ms / 1000);

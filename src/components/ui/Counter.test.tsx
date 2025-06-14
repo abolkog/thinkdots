@@ -1,44 +1,55 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Counter from './Counter';
+import { useTimer } from '@hooks/userTimer';
 
-jest.useFakeTimers();
+jest.mock('@hooks/userTimer');
+
+const mockedUseTimer = useTimer as jest.MockedFunction<typeof useTimer>;
+
+const baseExpectedValue = {
+  elapsed: 0,
+  start: jest.fn(),
+  stop: jest.fn(),
+  reset: jest.fn(),
+};
 
 describe('Counter', () => {
-  afterEach(() => {
-    jest.clearAllTimers();
-    jest.clearAllMocks();
+  beforeEach(jest.clearAllMocks);
+
+  it('renders formatted time correctly for 0 ms', () => {
+    mockedUseTimer.mockReturnValue(baseExpectedValue);
+
+    render(<Counter />);
+    expect(screen.getByText('00:00:00.00')).toBeInTheDocument();
   });
 
-  it('renders with initial time 00:00:00.00', () => {
-    render(<Counter />);
-    expect(screen.getByText(/00:00:00\.\d{2}/)).toBeInTheDocument();
-  });
-
-  it('updates elapsed time every 50ms', () => {
-    render(<Counter />);
-
-    expect(screen.getByText(/00:00:00\.\d{2}/)).toBeInTheDocument();
-
-    act(() => {
-      jest.advanceTimersByTime(1000);
+  it('renders formatted time for 1 hour, 2 minutes, 3 seconds, 450 ms', () => {
+    mockedUseTimer.mockReturnValue({
+      ...baseExpectedValue,
+      elapsed: 3723450,
     });
 
-    expect(screen.getByText(/00:00:01\.\d{2}/)).toBeInTheDocument();
-  });
-
-  it('formats time correctly for minutes and hours', () => {
     render(<Counter />);
-
-    act(() => {
-      jest.advanceTimersByTime(1 * 3600 * 1000 + 2 * 60 * 1000 + 3 * 1000 + 450);
-    });
-    expect(screen.getByText(/01:02:03\.45/)).toBeInTheDocument();
+    expect(screen.getByText('01:02:03.45')).toBeInTheDocument();
   });
 
-  it('cleans up interval on unmount', () => {
-    const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
+  it('calls start on mount and stop on unmount', () => {
+    mockedUseTimer.mockReturnValue(baseExpectedValue);
+
     const { unmount } = render(<Counter />);
+    expect(baseExpectedValue.start).toHaveBeenCalledTimes(1);
+
     unmount();
-    expect(clearIntervalSpy).toHaveBeenCalled();
+    expect(baseExpectedValue.stop).toHaveBeenCalledTimes(1);
+  });
+
+  it('updates when elapsed changes', () => {
+    mockedUseTimer.mockReturnValue(baseExpectedValue);
+    const { rerender } = render(<Counter />);
+    expect(screen.getByText('00:00:00.00')).toBeInTheDocument();
+
+    baseExpectedValue.elapsed = 12345;
+    rerender(<Counter />);
+    expect(screen.getByText('00:00:12.34')).toBeInTheDocument();
   });
 });

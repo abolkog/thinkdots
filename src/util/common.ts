@@ -38,7 +38,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: 'streak_5',
     name: 'On Fire',
     description: 'Achieve a win streak of 5 games.',
-    conditions: (state) => state.currentStreak >= 5 && state.currentStreak < 10,
+    conditions: (state) => state.currentStreak >= 5,
   },
   {
     id: 'streak_10',

@@ -21,10 +21,13 @@ export function TimerProvider({ children }: PropsWithChildren) {
     }
   };
 
-  const reset = () => {
+  const reset = (restart = false) => {
     stop();
     setElapsed(0);
     startTimeRef.current = null;
+    if (restart) {
+      start();
+    }
   };
 
   useEffect(() => {

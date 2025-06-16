@@ -4,7 +4,7 @@ type TimerContextType = {
   elapsed: number;
   start: () => void;
   stop: () => void;
-  reset: () => void;
+  reset: (restart?: boolean) => void;
 };
 
 export const TimerContext = createContext<TimerContextType>({

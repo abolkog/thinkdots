@@ -20,8 +20,8 @@ function Home() {
   };
 
   return (
-    <>
-      <article className="bg-black-300 w-[90%] rounded-lg p-5 text-center">
+    <section className="w-[90%] flex flex-col justify-center gap-5">
+      <article className="bg-black-300 w-full rounded-lg p-5 text-center">
         <Logo cssClass="bg-black-500 mb-5 p-4" />
 
         <h1 className="font-bold mb-5 text-lg">Welcome to ThinkDots</h1>
@@ -42,24 +42,24 @@ function Home() {
         </h3>
       </article>
 
-      <article className="flex flex-col gap-3 w-[90%]">
-        <div className="w-full rounded-2xl pb-2">
+      <article className="flex flex-col gap-1 w-full">
+        <div className="w-full rounded-2xl">
           <Button onClick={handleNewGame} cssClass="rounded-2xl w-full font-bold text-lg">
             play new game
           </Button>
         </div>
         <Divider label="OR" />
 
-        <div className="w-full rounded-2xl pb-2 flex items-center justify-center">
+        <div className="w-full rounded-2xl flex items-center justify-center">
           <NavLink
             to="/challenge/create"
-            className="uppercase text-black-400 py-3 px-3 bg-yellow-400 transition-all duration-200 ease-in-out rounded-2xl  font-bold text-lg"
+            className="uppercase text-black-400 py-3 px-3 bg-yellow-400 transition-all duration-200 ease-in-out rounded-2xl font-bold text-lg"
           >
             challenge a friend
           </NavLink>
         </div>
       </article>
-    </>
+    </section>
   );
 }
 

@@ -35,7 +35,7 @@ export default function CreateChallenge() {
   };
 
   return (
-    <section className="max-w-2xl ">
+    <section className="w-[90%] flex flex-col justify-center gap-5">
       <div className="flex justify-end">
         <NavLink to="/" className="flex items-center text-yellow-400 hover:text-yellow-500 transition-colors">
           Back to Home

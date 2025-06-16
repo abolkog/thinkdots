@@ -76,20 +76,22 @@ export default function StateListener() {
   const navigate = useNavigate();
   const { stopBg, playBg, playGameOver, playWin } = useSound();
   const { state, dispatch } = useGameContext();
-  const { stop } = useTimer();
+  const { stop, reset, start } = useTimer();
 
   const { isVictory, guessNumber } = state;
   const triggeredRef = useRef(false);
 
   const resetGame = useCallback(() => {
     playBg();
+    reset();
     dispatch({
       type: AppActions.RESET_GAME,
       payload: {
         isOpen: false,
       },
     });
-  }, [dispatch, playBg]);
+    start();
+  }, [dispatch, playBg, reset, start]);
 
   const exitGame = useCallback(() => {
     resetGame();

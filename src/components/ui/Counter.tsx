@@ -1,16 +1,7 @@
 import { useTimer } from '@hooks/userTimer';
-import { useEffect } from 'react';
 
 export default function Counter() {
-  const { elapsed, stop, start } = useTimer();
-
-  useEffect(() => {
-    start();
-
-    return () => {
-      stop();
-    };
-  }, [start, stop]);
+  const { elapsed } = useTimer();
 
   const formatTime = (ms: number) => {
     const totalSeconds = Math.floor(ms / 1000);

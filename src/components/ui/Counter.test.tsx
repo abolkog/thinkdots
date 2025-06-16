@@ -33,16 +33,6 @@ describe('Counter', () => {
     expect(screen.getByText('01:02:03.45')).toBeInTheDocument();
   });
 
-  it('calls start on mount and stop on unmount', () => {
-    mockedUseTimer.mockReturnValue(baseExpectedValue);
-
-    const { unmount } = render(<Counter />);
-    expect(baseExpectedValue.start).toHaveBeenCalledTimes(1);
-
-    unmount();
-    expect(baseExpectedValue.stop).toHaveBeenCalledTimes(1);
-  });
-
   it('updates when elapsed changes', () => {
     mockedUseTimer.mockReturnValue(baseExpectedValue);
     const { rerender } = render(<Counter />);

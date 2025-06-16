@@ -12,7 +12,7 @@ function TestComponent() {
       <span data-testid="elapsed">{elapsed}</span>
       <button onClick={start}>start</button>
       <button onClick={stop}>stop</button>
-      <button onClick={reset}>reset</button>
+      <button onClick={() => reset()}>reset</button>
     </div>
   );
 }

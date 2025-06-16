@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
+
 export type ModalProps = {
   title: string;
-  message: string;
+  message: ReactNode;
   yesButtonText: string;
   noButtonText?: string;
   yesButtonOnClick: () => void;

@@ -15,19 +15,12 @@ export default function Modal() {
         <div className="relative w-full  px-4 py-7 md:py-12 mx-auto bg-black-300 shadow-lg">
           <div className="mt-3 md:w-2/3 mx-auto">
             <div className="mt-2 text-center sm:ml-4 sm:text-left">
-              <h4 className="text-lg uppercase text-center font-medium ">
-                {modal?.title}
-              </h4>
+              <h4 className="text-lg uppercase text-center font-medium ">{modal?.title}</h4>
 
-              <p className="my-7 uppercase text-2xl flex items-center justify-center gap-2 ">
-                {modal?.message}
-              </p>
+              <div className="my-7 text-2xl flex items-center justify-center gap-2 ">{modal?.message}</div>
 
               <div className="flex justify-center items-center gap-10 mt-3">
-                <Button
-                  cssClass="rounded-2xl font-bold text-lg"
-                  onClick={modal?.yesButtonOnClick}
-                >
+                <Button cssClass="rounded-2xl font-bold text-lg" onClick={modal?.yesButtonOnClick}>
                   {modal?.yesButtonText}
                 </Button>
 

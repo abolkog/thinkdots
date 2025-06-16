@@ -1,9 +1,9 @@
 import { createContext } from 'react';
-import { initSecretCodeAndColorPalette, getPlayerStateFromStorage } from '@util/gameUtil';
+import { initSecretCode, getPlayerStateFromStorage } from '@util/gameUtil';
 import type { AppState, GameContextType } from '@context/types';
 
 export const initialState: AppState = {
-  ...initSecretCodeAndColorPalette(),
+  ...initSecretCode(),
   playerState: getPlayerStateFromStorage(),
   guesses: [],
   feedback: {},

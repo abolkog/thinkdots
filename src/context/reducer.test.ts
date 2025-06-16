@@ -86,7 +86,6 @@ describe('reducer', () => {
         ...mockState,
         startTime: expect.any(Number),
         secret: expect.any(Array),
-        colorPalette: expect.any(Array),
         guessNumber: 1,
         isValidGuess: false,
         isVictory: false,
@@ -97,13 +96,11 @@ describe('reducer', () => {
       });
     });
 
-    it('regenerates secret and colorPalette', () => {
+    it('regenerates secret', () => {
       const action = { type: AppActions.RESET_GAME };
       const state = reducer(mockState, action);
       expect(state.secret).toHaveLength(4);
-      expect(state.colorPalette).toHaveLength(4);
       expect(state.secret).not.toEqual(mockState.secret);
-      expect(state.colorPalette).not.toEqual(mockState.colorPalette);
     });
 
     it('keeps isEasyMode value', () => {

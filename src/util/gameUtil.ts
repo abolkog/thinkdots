@@ -18,10 +18,9 @@ function generateSecretCode() {
   return shuffled.slice(0, COLORS_PER_ROW);
 }
 
-export function initSecretCodeAndColorPalette() {
+export function initSecretCode() {
   const secret = generateSecretCode();
-  const colorPalette = [...secret].sort(() => Math.random() - 0.5);
-  return { secret, colorPalette };
+  return { secret };
 }
 
 export function getGuessStatus(guess: string, secret: string[], idx: number) {

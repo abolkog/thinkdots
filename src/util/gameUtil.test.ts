@@ -5,7 +5,7 @@ import {
   getGuessStatus,
   getPlayerStateFromStorage,
   getUnlockedAchievements,
-  initSecretCodeAndColorPalette,
+  initSecretCode,
   savePlayerStats,
   updateStats,
   validateCode,
@@ -17,15 +17,14 @@ jest.mock('@services/storage');
 const mockedStorageService = StorageService as jest.Mocked<typeof StorageService>;
 
 describe('GameUtil', () => {
-  describe('initSecretCodeAndColorPalette', () => {
+  describe('initSecretCode', () => {
     it('should generate a code color palette', () => {
-      const { secret, colorPalette } = initSecretCodeAndColorPalette();
+      const { secret } = initSecretCode();
       expect(secret).toHaveLength(4);
-      expect(colorPalette).toHaveLength(4);
     });
 
     it('should only use available colors', () => {
-      const { secret } = initSecretCodeAndColorPalette();
+      const { secret } = initSecretCode();
       const COLORS = ['red', 'indigo', 'green', 'yellow', 'purple', 'cyan'];
       secret.forEach((color) => {
         expect(COLORS).toContain(color);
@@ -33,23 +32,16 @@ describe('GameUtil', () => {
     });
 
     it('should not have duplicate colors in the code', () => {
-      const { secret } = initSecretCodeAndColorPalette();
+      const { secret } = initSecretCode();
       const uniqueColors = new Set(secret);
       expect(uniqueColors.size).toEqual(secret.length);
     });
 
     it('should generate different codes on subsequent calls (likely)', () => {
-      const { secret: secret1 } = initSecretCodeAndColorPalette();
-      const { secret: secret2 } = initSecretCodeAndColorPalette();
+      const { secret: secret1 } = initSecretCode();
+      const { secret: secret2 } = initSecretCode();
 
       expect(secret1.join('')).not.toEqual(secret2.join(''));
-    });
-
-    it('should generate a color palette that includes the secret colors', () => {
-      const { secret, colorPalette } = initSecretCodeAndColorPalette();
-      secret.forEach((color) => {
-        expect(colorPalette).toContain(color);
-      });
     });
   });
 

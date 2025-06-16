@@ -71,6 +71,7 @@ function ModalMessage() {
     </div>
   );
 }
+
 export default function StateListener() {
   const navigate = useNavigate();
   const { stopBg, playBg, playGameOver, playWin } = useSound();

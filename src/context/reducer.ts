@@ -1,7 +1,7 @@
 import { COLORS_PER_ROW } from '@util/common';
 import type { AppAction, AppState, ModalProps } from '@context/types';
 import { initialState } from '@context/GameContext';
-import { getGuessStatus, initSecretCodeAndColorPalette, resetPlayerStats, updateStats } from '@util/gameUtil';
+import { getGuessStatus, initSecretCode, resetPlayerStats, updateStats } from '@util/gameUtil';
 
 export const AppActions = {
   SET_GUESS: 'SET_GUESS',
@@ -56,7 +56,7 @@ export default function reducer(state: AppState, action: AppAction): AppState {
       const updatedPlayerState = state.isCustomChallenge ? state.playerState : updateStats(state);
       return {
         ...initialState,
-        ...initSecretCodeAndColorPalette(),
+        ...initSecretCode(),
         isEasyMode: state.isEasyMode,
         playerState: updatedPlayerState,
         startTime: Date.now(),

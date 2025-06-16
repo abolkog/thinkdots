@@ -12,7 +12,6 @@ export type ModalProps = {
 
 export type AppState = {
   secret: string[];
-  colorPalette: string[];
   guesses: string[];
   feedback: Record<number, number[]>;
   guessNumber: number;
